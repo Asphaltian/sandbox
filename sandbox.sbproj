@@ -1,0 +1,37 @@
+{
+  "Title": "Sandbox",
+  "Type": "game",
+  "Org": "facepunch",
+  "Ident": "sandbox",
+  "Schema": 1,
+  "IncludeSourceFiles": false,
+  "Resources": "",
+  "PackageReferences": [],
+  "EditorReferences": null,
+  "Mounts": [
+    "quake"
+  ],
+  "IsStandaloneOnly": false,
+  "Metadata": {
+    "MaxPlayers": 32,
+    "MinPlayers": 1,
+    "TickRate": 50,
+    "GameNetworkType": "Multiplayer",
+    "MapSelect": "Unrestricted",
+    "MapList": [
+      "facepunch.flatgrass"
+    ],
+    "RankType": "None",
+    "PerMapRanking": false,
+    "LeaderboardType": "None",
+    "CsProjName": "",
+    "StartupScene": "scenes/minimal.scene",
+    "ControlModes": {
+      "Keyboard": true,
+      "VR": false,
+      "Gamepad": true
+    },
+    "LaunchMode": "Launcher",
+    "MapStartupScene": "scenes/minimal.scene"
+  }
+}
