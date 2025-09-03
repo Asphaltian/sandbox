@@ -198,9 +198,23 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 			SendMessage( $"{attackerName} killed {(isSuicide ? "self" : player.DisplayName)} (tags: {dmg.Tags})" );
 	}
 
-	[Rpc.Host]
+	[Rpc.Broadcast]
 	public static async void Spawn( string path_or_ident )
 	{
+		// if we're the person calling this, then we don't do anything but add the spawn stat
+		if ( Rpc.Caller == Connection.Local )
+		{
+			var data = new Dictionary<string, object>();
+			data["ident"] = path_or_ident;
+			Sandbox.Services.Stats.Increment( "spawn", 1, data );
+
+			Sound.Play( "sounds/ui/spawn.sound" );
+		}
+
+		// Only actually spawn it on the host
+		if ( !Networking.IsHost )
+			return;
+
 		var player = Player.FindForConnection( Rpc.Caller );
 		if ( player is null ) return;
 
@@ -228,30 +242,43 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 
 		// TODO - can this user spawn this package?
 
-		var modelPath = await FindModelPath( path_or_ident );
-		if ( string.IsNullOrWhiteSpace( modelPath ) )
+		// we're a model
+		if ( await FindModelPath( path_or_ident ) is Model model )
 		{
-			Log.Warning( $"Couldn't find {path_or_ident}" );
+			SpawnModel( model, spawnTransform, player );
 			return;
 		}
 
-		var model = await Model.LoadAsync( modelPath );
-		SpawnModel( model, spawnTransform, player );
+		// we're a model
+		if ( await FindEntityPath( path_or_ident ) is ScriptedEntity entity )
+		{
+			//var model = await Model.LoadAsync( modelPath );
+			//SpawnModel( model, spawnTransform, player );
+			Log.Info( $"Spawn Entity {entity}" );
+			SpawnEntity( entity, spawnTransform, player );
+			return;
+		}
+
+		Log.Warning( $"Couldn't resolve '{path_or_ident}'" );
 	}
 
-	static async Task<string> FindModelPath( string ident_or_path )
+	static async Task<Model> FindModelPath( string ident_or_path )
 	{
-		if ( ident_or_path.EndsWith( ".vmdl", StringComparison.OrdinalIgnoreCase ) )
-			return ident_or_path;
+		if ( ident_or_path.EndsWith( ".vmdl" ) )
+		{
+			var se = await ResourceLibrary.LoadAsync<Model>( ident_or_path );
+			if ( se is not null ) return se;
+		}
 
-		var package = await Package.FetchAsync( ident_or_path, false );
-		if ( package is null ) return null;
-		if ( package.TypeName != "model" ) return null;
+		return await Cloud.Load<Model>( ident_or_path );
+	}
 
-		await package.MountAsync();
+	static async Task<ScriptedEntity> FindEntityPath( string ident_or_path )
+	{
+		var se = await ResourceLibrary.LoadAsync<ScriptedEntity>( ident_or_path );
+		if ( se is not null ) return se;
 
-		var modelName = package.GetMeta<string>( "PrimaryAsset" );
-		return modelName;
+		return await Cloud.Load<ScriptedEntity>( ident_or_path, true );
 	}
 
 	private static void SpawnModel( Model model, Transform spawnTransform, Player player )
@@ -280,6 +307,28 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 
 			go.AddComponent<Rigidbody>();
 		}
+
+		go.NetworkSpawn( true, null );
+
+		var undo = player.Undo.Create();
+		undo.Add( go );
+
+	}
+
+	private static void SpawnEntity( ScriptedEntity entity, Transform spawnTransform, Player player )
+	{
+		Log.Info( $"[{player}] Spawning Entity {entity.Title}" );
+
+		var prefabFile = entity.Prefab;
+		//var bounds = prefabFile.GetScene().GetLocalBounds();
+		var bounds = SceneUtility.GetPrefabScene( prefabFile ).GetLocalBounds();
+
+		var depth = -bounds.Mins.z;
+		spawnTransform.Position += spawnTransform.Up * depth;
+
+		var go = GameObject.Clone( prefabFile, new CloneConfig { Transform = spawnTransform, StartEnabled = false } );
+		go.Tags.Add( "removable" );
+		go.WorldTransform = spawnTransform;
 
 		go.NetworkSpawn( true, null );
 

@@ -65,6 +65,7 @@
         foreach ( var p in Game.TypeLibrary.GetTypes<ISpawnMenuTab>().OrderBy(x => x.Order).ThenBy(x => x.Title) ) 
         {  
             if (p.IsAbstract) continue;
+            if (p.TargetType == typeof(BaseSpawnMenu)) continue;
 
             var panel = p.Create<Panel>();
             TabContainer.AddChild(panel);
@@ -85,15 +86,24 @@
         }
     }
 
+    bool lastState;
+
     protected override void OnUpdate()
     {
-        Sandbox.Utility.AssetPreview.RunJobs();
-
         stickOpen = stickOpen || (Sandbox.UI.InputFocus.Current?.Ancestors.Contains(Panel) ?? false);
 
         if ( stickOpen && Input.Pressed("spawnmenu") ) stickOpen = false;
 
-        SetClass("open", stickOpen || Input.Down("spawnmenu"));
+        bool state = stickOpen || Input.Down("spawnmenu");
+
+        SetClass("open", state);
+
+        if (lastState != state && !state)
+        {
+            Popup.CloseAll();
+        }
+
+        lastState = state;
 
         base.OnUpdate();
     }

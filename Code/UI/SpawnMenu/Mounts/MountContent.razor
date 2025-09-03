@@ -11,34 +11,35 @@
     return;
 }
 
-<root>
 
-    <div class="header">
-        <div>@mount.Title</div>
-    </div>
+<SpawnMenuContent>
 
-    <div class="body">
+    <Header>
+        <SpawnMenuToolbar></SpawnMenuToolbar>
+    </Header>
 
-        @foreach (var r in mount.Resources)
-        {
-            if ( r.Type != ResourceType.Model ) continue;
+    <Body>
+        <VirtualGrid Items=@( GetData() ) ItemSize=@(120)>
+            <Item Context="item">
+                @if (item is ResourceLoader loader)
+                {
+                    <SpawnIcon Loader="@loader" @onclick=@( () => Spawn( loader.Path ) )></SpawnIcon>
+                }
+            </Item>
+        </VirtualGrid>
+    </Body>
 
-            <SpawnIcon Path="@r.Path" @onclick=@( () => Spawn( r.Path ) )></SpawnIcon>
-        }
-
-    </div>
-
-</root>
+</SpawnMenuContent>
 
 @code
 {
     public string Ident { get; set; }
 
     BaseGameMount mount;
-    
+
     protected override async Task OnParametersSetAsync()
     {
-        mount = await Sandbox.Mounting.Directory.Mount(Ident);
+        mount = await Sandbox.Mounting.Directory.Mount( Ident );
     }
 
     void Spawn(string ident)
@@ -46,6 +47,11 @@
         Log.Info($"Spawning {ident}");
 
         GameManager.Spawn(ident);
+    }
+
+    IEnumerable<object> GetData()
+    {
+        return mount?.Resources.Where( x => x.Type == ResourceType.Model );
     }
 
 }

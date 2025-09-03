@@ -145,9 +145,9 @@
                     "__guid": "f228ef6f-3be2-4291-b397-1ca331c1a0bd",
                     "__enabled": true,
                     "__version": 1,
-                    "DenoiseMode": "Temporal",
-                    "FalloffRange": 0.75,
-                    "Intensity": 0.15,
+                    "DenoiseMode": "Spatial",
+                    "FalloffRange": 1,
+                    "Intensity": 1,
                     "OnComponentDestroy": null,
                     "OnComponentDisabled": null,
                     "OnComponentEnabled": null,
@@ -156,7 +156,7 @@
                     "OnComponentUpdate": null,
                     "Quality": "High",
                     "Radius": 128,
-                    "ThinCompensation": 0
+                    "ThinCompensation": 5
                 },
                 {
                     "__type": "Sandbox.Highlight",

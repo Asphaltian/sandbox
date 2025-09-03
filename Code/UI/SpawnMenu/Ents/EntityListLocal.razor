@@ -1,0 +1,18 @@
+@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+
+
+<VirtualGrid Items=@( FileSystem.Mounted.FindFile("/", "*.sent", true ) ) ItemSize=@(120)>
+    <Item Context="item">
+        @if (item is string entry)
+        {
+            <div onclick=@(() => GameManager.Spawn(entry))>@entry</div>
+        }
+    </Item>
+</VirtualGrid>
+
+@code
+{
+    
+}
