@@ -1,3 +1,5 @@
+
+
 [AssetType( Name = "Sandbox Entity", Extension = "sent", Category = "Sandbox", Flags = AssetTypeFlags.NoEmbedding )]
 public class ScriptedEntity : GameResource
 {
@@ -36,8 +38,6 @@ public class ScriptedEntity : GameResource
 
 	public override void ConfigurePublishing( ResourcePublishContext context )
 	{
-		Log.Info( "ConfigurePublishing" );
-
 		if ( Prefab is null )
 		{
 			context.SetPublishingDisabled( "Invalid: missing a prefab" );

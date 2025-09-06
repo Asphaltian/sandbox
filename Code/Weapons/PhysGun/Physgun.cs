@@ -6,6 +6,7 @@ public partial class Physgun : BaseCarryable
 
 	public struct GrabState
 	{
+		public bool Active { get; set; }
 		public GameObject GameObject { get; set; }
 		public Vector3 LocalOffset { get; set; }
 		public Vector3 LocalNormal { get; set; }
@@ -62,10 +63,10 @@ public partial class Physgun : BaseCarryable
 		var player = GetComponentInParent<Player>();
 
 
-		if ( _state.IsValid() )
+		if ( _state.Active )
 		{
 			var muzzle = WeaponModel?.MuzzleTransform?.WorldTransform ?? WorldTransform;
-			UpdateBeam( muzzle, _state.EndPoint, _stateHovered.EndNormal );
+			UpdateBeam( muzzle, _state.EndPoint, _stateHovered.EndNormal, _state.IsValid() );
 		}
 		else
 		{
@@ -87,6 +88,8 @@ public partial class Physgun : BaseCarryable
 		if ( !isSnapping && _isSnapping ) _spinRotation = _snapRotation;
 
 		_isSnapping = isSnapping;
+
+		ViewModel?.RunEvent<ViewModel>( UpdateViewModel );
 
 		if ( _state.IsValid() )
 		{
@@ -113,6 +116,8 @@ public partial class Physgun : BaseCarryable
 				go.Position.x += MathF.Max( 40.0f - go.Position.x, Input.MouseWheel.y * 20.0f );
 
 				state.GrabOffset = go;
+				state.Active = true;
+
 				_state = default;
 				_state = state;
 
@@ -184,9 +189,11 @@ public partial class Physgun : BaseCarryable
 
 		if ( Input.Down( "attack1" ) )
 		{
+			ViewModel?.RunEvent<ViewModel>( x => x.OnAttack() );
+
 			var muzzle = WeaponModel?.MuzzleTransform?.WorldTransform ?? player.EyeTransform;
 
-			_state = _stateHovered;
+			_state = _stateHovered with { Active = true };
 
 			if ( _state.IsValid() )
 			{
@@ -195,8 +202,25 @@ public partial class Physgun : BaseCarryable
 		}
 		else
 		{
+			_state = default;
 			_preventReselect = false;
 		}
+	}
+
+	private void UpdateViewModel( ViewModel model )
+	{
+		float stylus = 0;
+
+		if ( _stateHovered.IsValid() )
+			stylus = 0.5f;
+
+		if ( _state.Active )
+			stylus = 1;
+
+		model.IsAttacking = _state.Active;
+		model.Renderer?.Set( "stylus", stylus );
+		model.Renderer?.Set( "b_button", _isSpinning );
+		model.Renderer?.Set( "brake", _state.Active ? 1 : 0 );
 	}
 
 	Sandbox.Physics.FixedJoint _joint;
@@ -296,13 +320,25 @@ public partial class Physgun : BaseCarryable
 		return true;
 	}
 
-	[Rpc.Host]
+	[Rpc.Broadcast]
 	void Freeze( Rigidbody body )
 	{
 		if ( !body.IsValid() ) return;
+
+		var effect = FreezeEffectPrefab.Clone( body.WorldTransform );
+
+		foreach ( var emitter in effect.GetComponentsInChildren<ParticleModelEmitter>() )
+		{
+			emitter.Target = body.GameObject;
+		}
+
 		if ( body.IsProxy ) return;
 
-		body.MotionEnabled = false;
+		if ( Networking.IsHost )
+		{
+
+			body.MotionEnabled = false;
+		}
 	}
 
 	[Rpc.Host]

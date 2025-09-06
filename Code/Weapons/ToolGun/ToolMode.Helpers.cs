@@ -54,6 +54,7 @@ public abstract partial class ToolMode
 	public SelectionPoint TraceSelect()
 	{
 		var player = Toolgun?.Owner;
+		if ( !player.IsValid() ) return default;
 
 		var tr = Scene.Trace.Ray( player.EyeTransform.ForwardRay, 4096 )
 		.IgnoreGameObjectHierarchy( player.GameObject )
