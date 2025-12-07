@@ -81,7 +81,11 @@ public partial class Physgun : BaseCarryable
 		if ( Scene.TimeScale == 0 )
 			return;
 
-		_isSpinning = Input.Down( "use" );
+		_isSpinning = Input.Down( "use" ) && _state.IsValid();
+		if ( _isSpinning )
+		{
+			Input.Clear( "use" );
+		}
 
 		var isSnapping = Input.Down( "run" ) || Input.Down( "walk" );
 		var snapAngle = Input.Down( "walk" ) ? 15.0f : 45.0f;
@@ -230,7 +234,7 @@ public partial class Physgun : BaseCarryable
 		model.Renderer?.Set( "brake", _state.Active ? 1 : 0 );
 	}
 
-	Sandbox.Physics.FixedJoint _joint;
+	Sandbox.Physics.ControlJoint _joint;
 	PhysicsBody _body;
 
 	void RemoveJoint()
@@ -247,6 +251,7 @@ public partial class Physgun : BaseCarryable
 		base.OnDisabled();
 
 		RemoveJoint();
+		CloseBeam();
 	}
 
 	protected override void OnFixedUpdate()
@@ -269,14 +274,23 @@ public partial class Physgun : BaseCarryable
 			AutoSleep = false
 		};
 
+		_body.Transform = target;
+
 		if ( _joint is null )
 		{
-			_joint = PhysicsJoint.CreateFixed( _body, _state.Body.PhysicsBody );
-			_joint.SpringLinear = new PhysicsSpring( 16, 4 );
-			_joint.SpringAngular = new PhysicsSpring( 0, 0 );
-		}
+			var body = _state.Body.PhysicsBody;
 
-		_body.Transform = target;
+			var anchor = _state.EndPoint;
+			var localFrame1 = new Transform( _body.Transform.PointToLocal( anchor ) );
+			var localFrame2 = new Transform( body.Transform.PointToLocal( anchor ), body.Rotation.Conjugate * _body.Rotation );
+			var point1 = new PhysicsPoint( _body, localFrame1.Position, localFrame1.Rotation );
+			var point2 = new PhysicsPoint( body, localFrame2.Position, localFrame2.Rotation );
+			var maxForce = body.Mass * body.World.Gravity.LengthSquared;
+
+			_joint = PhysicsJoint.CreateControl( point1, point2 );
+			_joint.LinearSpring = new PhysicsSpring( 32, 4, maxForce );
+			_joint.AngularSpring = new PhysicsSpring( 64, 4, maxForce * 3 );
+		}
 	}
 
 	bool CanMove()

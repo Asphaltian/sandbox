@@ -47,6 +47,52 @@
                 },
                 "ThrowableType": "HEGrenade",
                 "TracerEffect": null
+            },
+            {
+                "__type": "PhygunViewmodel",
+                "__guid": "7f7931c8-e48f-457c-8b86-b6ceeb130411",
+                "__enabled": true,
+                "BeamActive": false,
+                "BottleMaterial": "models/weapons/sbox_physgun/v_physgun_d.vmat",
+                "GlowEffect": {
+                    "_type": "component",
+                    "component_id": "641c4ad5-7b84-41d6-95b8-81517a04d182",
+                    "go": "45f9462f-1700-4260-9337-37001fe7d38b",
+                    "component_type": "ParticleEffect"
+                },
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "SparksEffect": {
+                    "_type": "component",
+                    "component_id": "0f532897-1e26-4406-9671-c20a889d105b",
+                    "go": "7a2f543f-a785-4710-aba5-e6b92202956b",
+                    "component_type": "ParticleEffect"
+                },
+                "TipSprites": [
+                    {
+                        "_type": "component",
+                        "component_id": "db0ed248-5ae8-4cd5-8c02-24a2ab4d7a14",
+                        "go": "f3089444-246a-47ab-bfa5-037ac9f9bb81",
+                        "component_type": "SpriteRenderer"
+                    },
+                    {
+                        "_type": "component",
+                        "component_id": "82c091c0-882c-47eb-86d5-b2195ef661b5",
+                        "go": "ee8f88b0-2dec-4db8-aa2d-a9493699a10f",
+                        "component_type": "SpriteRenderer"
+                    },
+                    {
+                        "_type": "component",
+                        "component_id": "99de8adb-17b6-469f-9af5-d57a5bbde68f",
+                        "go": "02128166-e28b-471d-aac1-f77a9acd475a",
+                        "component_type": "SpriteRenderer"
+                    }
+                ],
+                "TubeFxMaterial": "models/weapons/sbox_physgun/v_physgun_tube.vmat"
             }
         ],
         "Children": [
@@ -74,10 +120,11 @@
                         "BoneMergeTarget": null,
                         "CreateAttachments": true,
                         "CreateBoneObjects": true,
+                        "LodOverride": null,
                         "MaterialGroup": null,
                         "MaterialOverride": null,
                         "Materials": null,
-                        "Model": "weapons/physgun/v_physgun.vmdl",
+                        "Model": "models/weapons/sbox_physgun/v_physgun.vmdl",
                         "Morphs": {},
                         "OnComponentDestroy": null,
                         "OnComponentDisabled": null,
@@ -115,8 +162,8 @@
                         "__version": 1,
                         "Flags": 4,
                         "Name": "weapon_root",
-                        "Position": "-6.88975,0.0000002240629,4.52755",
-                        "Rotation": "-0.0000001788139,0.000000000000000000003388132,0.0000001788139,1",
+                        "Position": "0,0,0",
+                        "Rotation": "0,0,0,1",
                         "Scale": "1,1,1",
                         "Tags": "",
                         "Enabled": true,
@@ -266,8 +313,8 @@
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "weapon_IK_hand_L",
-                                        "Position": "4.866633,7.144694,-1.168222",
-                                        "Rotation": "-0.000001192092,-0.00000000000000000007702375,-0.0000000000007541348,1",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -282,8 +329,8 @@
                                                 "__version": 1,
                                                 "Flags": 4,
                                                 "Name": "hand_L_to_weapon_ikrule",
-                                                "Position": "3.317596,13.21434,-23.89299",
-                                                "Rotation": "0.7376003,0.5432283,-0.1922883,0.3519568",
+                                                "Position": "0,0,0",
+                                                "Rotation": "0,0,0,1",
                                                 "Scale": "1,1,1",
                                                 "Tags": "",
                                                 "Enabled": true,
@@ -301,8 +348,8 @@
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "weapon_IK_hand_R",
-                                        "Position": "-3.34645,-0.0000006730551,1.377948",
-                                        "Rotation": "-0.000001192092,-0.00000000000000000007702375,-0.0000000000007541348,1",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -317,8 +364,8 @@
                                                 "__version": 1,
                                                 "Flags": 4,
                                                 "Name": "hand_R_to_weapon_ikrule",
-                                                "Position": "11.53062,-20.35879,-26.43922",
-                                                "Rotation": "0.3519621,0.1924764,-0.5431392,0.7376146",
+                                                "Position": "0,0,0",
+                                                "Rotation": "0,0,0,1",
                                                 "Scale": "1,1,1",
                                                 "Tags": "",
                                                 "Enabled": true,
@@ -336,7 +383,7 @@
                                         "__version": 1,
                                         "Flags": 0,
                                         "Name": "MuzzleTransform",
-                                        "Position": "6.119591,-0.1247237,1.695858",
+                                        "Position": "17.63894,-0.1247237,1.695858",
                                         "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
@@ -346,15 +393,630 @@
                                         "NetworkOrphaned": 0,
                                         "OwnerTransfer": 1,
                                         "Components": [],
-                                        "Children": []
+                                        "Children": [
+                                            {
+                                                "__guid": "45f9462f-1700-4260-9337-37001fe7d38b",
+                                                "__version": 1,
+                                                "Flags": 0,
+                                                "Name": "GlowEffectParticles",
+                                                "Position": "2.787677,0.1247226,-0.7768826",
+                                                "Rotation": "0,0,0,1",
+                                                "Scale": "1,1,1",
+                                                "Tags": "particles",
+                                                "Enabled": true,
+                                                "NetworkMode": 2,
+                                                "NetworkInterpolation": true,
+                                                "NetworkOrphaned": 0,
+                                                "OwnerTransfer": 1,
+                                                "Components": [
+                                                    {
+                                                        "__type": "Sandbox.ParticleEffect",
+                                                        "__guid": "641c4ad5-7b84-41d6-95b8-81517a04d182",
+                                                        "__enabled": true,
+                                                        "__version": 3,
+                                                        "Alpha": 0.2,
+                                                        "ApplyAlpha": true,
+                                                        "ApplyColor": true,
+                                                        "ApplyRotation": true,
+                                                        "ApplyShape": true,
+                                                        "Bounce": 1,
+                                                        "Brightness": 0.3,
+                                                        "Bumpiness": 0,
+                                                        "Collision": false,
+                                                        "CollisionIgnore": null,
+                                                        "CollisionPrefab": null,
+                                                        "CollisionPrefabAlign": false,
+                                                        "CollisionPrefabChance": 1,
+                                                        "CollisionPrefabRotation": 0,
+                                                        "CollisionRadius": 1,
+                                                        "ConstantMovement": {
+                                                            "X": 0,
+                                                            "Y": 0,
+                                                            "Z": 0
+                                                        },
+                                                        "Damping": 0,
+                                                        "DieOnCollisionChance": 0,
+                                                        "FollowerPrefab": null,
+                                                        "FollowerPrefabChance": 1,
+                                                        "FollowerPrefabKill": true,
+                                                        "Force": false,
+                                                        "ForceDirection": "0,0,-800",
+                                                        "ForceScale": 1,
+                                                        "ForceSpace": "World",
+                                                        "Friction": 1,
+                                                        "Gradient": {
+                                                            "Type": "Constant",
+                                                            "Evaluation": "Particle",
+                                                            "GradientA": {
+                                                                "blend": "Linear",
+                                                                "color": [
+                                                                    {
+                                                                        "t": 0.5,
+                                                                        "c": "1,1,1,1"
+                                                                    }
+                                                                ],
+                                                                "alpha": []
+                                                            },
+                                                            "GradientB": {
+                                                                "blend": "Linear",
+                                                                "color": [
+                                                                    {
+                                                                        "t": 0.5,
+                                                                        "c": "1,1,1,1"
+                                                                    }
+                                                                ],
+                                                                "alpha": []
+                                                            },
+                                                            "ConstantA": "1,1,1,1",
+                                                            "ConstantB": "1,1,1,1"
+                                                        },
+                                                        "InitialVelocity": {
+                                                            "X": 0,
+                                                            "Y": 0,
+                                                            "Z": 0
+                                                        },
+                                                        "Lifetime": {
+                                                            "Type": "Range",
+                                                            "Evaluation": "Seed",
+                                                            "Constants": "0.5,1,0,0"
+                                                        },
+                                                        "LocalSpace": 1,
+                                                        "MaxParticles": 6,
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
+                                                        "OnParticleCreated": null,
+                                                        "OnParticleDestroyed": null,
+                                                        "OrbitalForce": {
+                                                            "X": 0,
+                                                            "Y": 0,
+                                                            "Z": 0
+                                                        },
+                                                        "OrbitalPull": 0,
+                                                        "PerParticleTimeScale": 1,
+                                                        "Pitch": 5.3099995,
+                                                        "PreWarm": 1,
+                                                        "PushStrength": 0,
+                                                        "Roll": {
+                                                            "Type": "CurveRange",
+                                                            "Evaluation": "Life",
+                                                            "CurveA": {
+                                                                "rangey": "0,100",
+                                                                "frames": [
+                                                                    {
+                                                                        "x": 0,
+                                                                        "y": 1,
+                                                                        "in": 0,
+                                                                        "out": 0,
+                                                                        "mode": "Mirrored"
+                                                                    },
+                                                                    {
+                                                                        "x": 1,
+                                                                        "y": 0,
+                                                                        "in": 0,
+                                                                        "out": 0,
+                                                                        "mode": "Mirrored"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            "CurveB": {
+                                                                "rangey": "0,100",
+                                                                "frames": [
+                                                                    {
+                                                                        "x": 0,
+                                                                        "y": 0,
+                                                                        "in": 0,
+                                                                        "out": 0,
+                                                                        "mode": "Mirrored"
+                                                                    },
+                                                                    {
+                                                                        "x": 1,
+                                                                        "y": 0.641129,
+                                                                        "in": 0,
+                                                                        "out": 0,
+                                                                        "mode": "Mirrored"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        },
+                                                        "Scale": 32,
+                                                        "SequenceId": 0,
+                                                        "SequenceSpeed": 1,
+                                                        "SequenceTime": 1,
+                                                        "SheetSequence": false,
+                                                        "StartDelay": 0,
+                                                        "StartVelocity": {
+                                                            "Type": "Range",
+                                                            "Evaluation": "Seed",
+                                                            "Constants": "0,0,0,0"
+                                                        },
+                                                        "Stretch": 0,
+                                                        "TimeScale": 1,
+                                                        "Timing": "GameTime",
+                                                        "Tint": "0.25116,0.72543,1,1",
+                                                        "UsePrefabFeature": false,
+                                                        "Yaw": {
+                                                            "Type": "Range",
+                                                            "Evaluation": "Life",
+                                                            "Constants": "0,36000,0,0"
+                                                        }
+                                                    },
+                                                    {
+                                                        "__type": "Sandbox.ParticleSpriteRenderer",
+                                                        "__guid": "6f17b592-6456-4735-b627-0b8492b22432",
+                                                        "__enabled": true,
+                                                        "__version": 2,
+                                                        "Additive": true,
+                                                        "Alignment": "LookAtCamera",
+                                                        "BlurAmount": 0.5,
+                                                        "BlurOpacity": 0.91,
+                                                        "BlurSpacing": 0.73,
+                                                        "DepthFeather": 9.621993,
+                                                        "FaceVelocity": false,
+                                                        "FogStrength": 1,
+                                                        "LeadingTrail": true,
+                                                        "Lighting": false,
+                                                        "MotionBlur": false,
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
+                                                        "Opaque": false,
+                                                        "PlaybackSpeed": 1,
+                                                        "RenderOptions": {
+                                                            "GameLayer": false,
+                                                            "OverlayLayer": true,
+                                                            "BloomLayer": true,
+                                                            "AfterUILayer": false
+                                                        },
+                                                        "RotationOffset": 0,
+                                                        "Scale": 0.89756095,
+                                                        "Shadows": false,
+                                                        "SortMode": "Unsorted",
+                                                        "Sprite": {
+                                                            "$compiler": "embed",
+                                                            "$source": null,
+                                                            "data": {
+                                                                "Animations": [
+                                                                    {
+                                                                        "Name": "Default",
+                                                                        "FrameRate": 15,
+                                                                        "Origin": "0.5,0.5",
+                                                                        "LoopMode": "Loop",
+                                                                        "Frames": [
+                                                                            {
+                                                                                "Texture": {
+                                                                                    "$compiler": "texture",
+                                                                                    "$source": "imagefile",
+                                                                                    "data": {
+                                                                                        "FilePath": "textures/lightcookies/lightcookies_z009.tga",
+                                                                                        "MaxSize": 4096,
+                                                                                        "ConvertHeightToNormals": false,
+                                                                                        "NormalScale": 1,
+                                                                                        "Rotate": 0,
+                                                                                        "FlipVertical": false,
+                                                                                        "FlipHorizontal": false,
+                                                                                        "Cropping": {
+                                                                                            "Left": 0,
+                                                                                            "Top": 0,
+                                                                                            "Right": 0,
+                                                                                            "Bottom": 0
+                                                                                        },
+                                                                                        "Padding": {
+                                                                                            "Left": 0,
+                                                                                            "Top": 0,
+                                                                                            "Right": 0,
+                                                                                            "Bottom": 0
+                                                                                        },
+                                                                                        "InvertColor": false,
+                                                                                        "Tint": "1,1,1,1",
+                                                                                        "Blur": 0,
+                                                                                        "Sharpen": 0,
+                                                                                        "Brightness": 1,
+                                                                                        "Contrast": 1,
+                                                                                        "Saturation": 1,
+                                                                                        "Hue": 0,
+                                                                                        "Colorize": false,
+                                                                                        "TargetColor": "0,1,0,1",
+                                                                                        "CacheToDisk": true
+                                                                                    },
+                                                                                    "compiled": "textures/generated/imagefile/14af22c9ac0e9f53.vtex"
+                                                                                },
+                                                                                "BroadcastMessages": []
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "__references": null
+                                                            },
+                                                            "compiled": null
+                                                        },
+                                                        "StartingAnimationName": "Default",
+                                                        "TextureFilter": "Bilinear"
+                                                    },
+                                                    {
+                                                        "__type": "Sandbox.ParticleSphereEmitter",
+                                                        "__guid": "08fb1360-405a-4ed3-ade2-bac1e8860163",
+                                                        "__enabled": true,
+                                                        "Burst": 0,
+                                                        "Delay": 0,
+                                                        "DestroyOnEnd": false,
+                                                        "Duration": 5,
+                                                        "Loop": true,
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
+                                                        "OnEdge": false,
+                                                        "Radius": 2,
+                                                        "Rate": 100,
+                                                        "RateOverDistance": 0,
+                                                        "Velocity": 0
+                                                    }
+                                                ],
+                                                "Children": []
+                                            },
+                                            {
+                                                "__guid": "7a2f543f-a785-4710-aba5-e6b92202956b",
+                                                "__version": 1,
+                                                "Flags": 0,
+                                                "Name": "TurnOnSparks",
+                                                "Position": "2.148911,-0.00000000110029,0.0000000000001563194",
+                                                "Rotation": "0,0,0,1",
+                                                "Scale": "1,1,1",
+                                                "Tags": "particles",
+                                                "Enabled": true,
+                                                "NetworkMode": 2,
+                                                "NetworkInterpolation": true,
+                                                "NetworkOrphaned": 0,
+                                                "OwnerTransfer": 1,
+                                                "Components": [
+                                                    {
+                                                        "__type": "Sandbox.ParticleEffect",
+                                                        "__guid": "0f532897-1e26-4406-9671-c20a889d105b",
+                                                        "__enabled": true,
+                                                        "__version": 3,
+                                                        "Alpha": {
+                                                            "Type": "Curve",
+                                                            "Evaluation": "Life",
+                                                            "CurveA": [
+                                                                {
+                                                                    "x": 0,
+                                                                    "y": 1,
+                                                                    "in": 0,
+                                                                    "out": 0,
+                                                                    "mode": "Mirrored"
+                                                                },
+                                                                {
+                                                                    "x": 1,
+                                                                    "y": 0,
+                                                                    "in": 0,
+                                                                    "out": 0,
+                                                                    "mode": "Mirrored"
+                                                                }
+                                                            ],
+                                                            "CurveB": [
+                                                                {
+                                                                    "x": 0.5,
+                                                                    "y": 0.5,
+                                                                    "in": 0,
+                                                                    "out": 0,
+                                                                    "mode": "Mirrored"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "ApplyAlpha": false,
+                                                        "ApplyColor": true,
+                                                        "ApplyRotation": false,
+                                                        "ApplyShape": true,
+                                                        "Bounce": 1,
+                                                        "Brightness": 5,
+                                                        "Bumpiness": 0,
+                                                        "Collision": false,
+                                                        "CollisionIgnore": null,
+                                                        "CollisionPrefab": null,
+                                                        "CollisionPrefabAlign": false,
+                                                        "CollisionPrefabChance": 1,
+                                                        "CollisionPrefabRotation": 0,
+                                                        "CollisionRadius": 1,
+                                                        "ConstantMovement": {
+                                                            "X": 0,
+                                                            "Y": 0,
+                                                            "Z": 0
+                                                        },
+                                                        "Damping": 1.5,
+                                                        "DieOnCollisionChance": 0,
+                                                        "FollowerPrefab": null,
+                                                        "FollowerPrefabChance": 1,
+                                                        "FollowerPrefabKill": true,
+                                                        "Force": true,
+                                                        "ForceDirection": "0,0,-100",
+                                                        "ForceScale": 1,
+                                                        "ForceSpace": "World",
+                                                        "Friction": 1,
+                                                        "Gradient": {
+                                                            "Type": "Constant",
+                                                            "Evaluation": "Particle",
+                                                            "GradientA": {
+                                                                "blend": "Linear",
+                                                                "color": [
+                                                                    {
+                                                                        "t": 0.5,
+                                                                        "c": "1,1,1,1"
+                                                                    }
+                                                                ],
+                                                                "alpha": []
+                                                            },
+                                                            "GradientB": {
+                                                                "blend": "Linear",
+                                                                "color": [
+                                                                    {
+                                                                        "t": 0.5,
+                                                                        "c": "1,1,1,1"
+                                                                    }
+                                                                ],
+                                                                "alpha": []
+                                                            },
+                                                            "ConstantA": "1,1,1,1",
+                                                            "ConstantB": "1,1,1,1"
+                                                        },
+                                                        "InitialVelocity": {
+                                                            "X": 0,
+                                                            "Y": 0,
+                                                            "Z": 0
+                                                        },
+                                                        "Lifetime": {
+                                                            "Type": "Range",
+                                                            "Evaluation": "Seed",
+                                                            "Constants": "0.1,0.5,0,0"
+                                                        },
+                                                        "LocalSpace": {
+                                                            "Type": "Curve",
+                                                            "Evaluation": "Life",
+                                                            "CurveA": [
+                                                                {
+                                                                    "x": 0,
+                                                                    "y": 1,
+                                                                    "in": -0.17000021,
+                                                                    "out": 0.17000021,
+                                                                    "mode": "Mirrored"
+                                                                },
+                                                                {
+                                                                    "x": 1,
+                                                                    "y": 0,
+                                                                    "in": 0,
+                                                                    "out": 0,
+                                                                    "mode": "Mirrored"
+                                                                }
+                                                            ],
+                                                            "CurveB": [
+                                                                {
+                                                                    "x": 0.5,
+                                                                    "y": 0.5,
+                                                                    "in": 0,
+                                                                    "out": 0,
+                                                                    "mode": "Mirrored"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "MaxParticles": 40,
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
+                                                        "OnParticleCreated": null,
+                                                        "OnParticleDestroyed": null,
+                                                        "OrbitalForce": {
+                                                            "X": 0,
+                                                            "Y": 0,
+                                                            "Z": 0
+                                                        },
+                                                        "OrbitalPull": 0,
+                                                        "PerParticleTimeScale": 1,
+                                                        "Pitch": 0,
+                                                        "PreWarm": 0,
+                                                        "PushStrength": 0,
+                                                        "Roll": 0,
+                                                        "Scale": {
+                                                            "Type": "CurveRange",
+                                                            "Evaluation": "Life",
+                                                            "CurveA": [
+                                                                {
+                                                                    "x": 0,
+                                                                    "y": 0,
+                                                                    "in": -9.333329,
+                                                                    "out": 9.333329,
+                                                                    "mode": "Mirrored"
+                                                                },
+                                                                {
+                                                                    "x": 0.018264854,
+                                                                    "y": 0.54032254,
+                                                                    "in": 0.35339665,
+                                                                    "out": -0.35339665,
+                                                                    "mode": "Mirrored"
+                                                                },
+                                                                {
+                                                                    "x": 1,
+                                                                    "y": 0,
+                                                                    "in": 0.45454556,
+                                                                    "out": -0.45454556,
+                                                                    "mode": "Mirrored"
+                                                                }
+                                                            ],
+                                                            "CurveB": [
+                                                                {
+                                                                    "x": 0,
+                                                                    "y": 0.14919353,
+                                                                    "in": 0,
+                                                                    "out": 0,
+                                                                    "mode": "Mirrored"
+                                                                },
+                                                                {
+                                                                    "x": 0.9495913,
+                                                                    "y": 0,
+                                                                    "in": 0,
+                                                                    "out": 0,
+                                                                    "mode": "Mirrored"
+                                                                }
+                                                            ]
+                                                        },
+                                                        "SequenceId": 0,
+                                                        "SequenceSpeed": 1,
+                                                        "SequenceTime": 1,
+                                                        "SheetSequence": false,
+                                                        "StartDelay": 0,
+                                                        "StartVelocity": {
+                                                            "Type": "Range",
+                                                            "Evaluation": "Seed",
+                                                            "Constants": "0,0,0,0"
+                                                        },
+                                                        "Stretch": 0,
+                                                        "TimeScale": 1,
+                                                        "Timing": "GameTime",
+                                                        "Tint": "0.29629,0.94875,0.99535,1",
+                                                        "UsePrefabFeature": false,
+                                                        "Yaw": {
+                                                            "Type": "Range",
+                                                            "Evaluation": "Seed",
+                                                            "Constants": "0,360,0,0"
+                                                        }
+                                                    },
+                                                    {
+                                                        "__type": "Sandbox.ParticleSpriteRenderer",
+                                                        "__guid": "4f5607ae-9395-4a5c-81db-cd229bff43d8",
+                                                        "__enabled": true,
+                                                        "__version": 2,
+                                                        "Additive": true,
+                                                        "Alignment": "LookAtCamera",
+                                                        "BlurAmount": 0.5,
+                                                        "BlurOpacity": 0.91,
+                                                        "BlurSpacing": 0.73,
+                                                        "DepthFeather": 0,
+                                                        "FaceVelocity": false,
+                                                        "FogStrength": 1,
+                                                        "LeadingTrail": true,
+                                                        "Lighting": false,
+                                                        "MotionBlur": true,
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
+                                                        "Opaque": false,
+                                                        "PlaybackSpeed": 1,
+                                                        "RenderOptions": {
+                                                            "GameLayer": false,
+                                                            "OverlayLayer": true,
+                                                            "BloomLayer": false,
+                                                            "AfterUILayer": false
+                                                        },
+                                                        "RotationOffset": 0,
+                                                        "Scale": 1,
+                                                        "Shadows": false,
+                                                        "SortMode": "Unsorted",
+                                                        "Sprite": {
+                                                            "$compiler": "embed",
+                                                            "$source": null,
+                                                            "data": {
+                                                                "Animations": [
+                                                                    {
+                                                                        "Name": "Default",
+                                                                        "FrameRate": 15,
+                                                                        "Origin": "0.5,0.5",
+                                                                        "LoopMode": "Loop",
+                                                                        "Frames": [
+                                                                            {
+                                                                                "Texture": {
+                                                                                    "$compiler": "texture",
+                                                                                    "$source": "imagefile",
+                                                                                    "data": {
+                                                                                        "FilePath": "textures/lightcookies/lightcookies_z009.tga",
+                                                                                        "MaxSize": 4096,
+                                                                                        "ConvertHeightToNormals": false,
+                                                                                        "NormalScale": 1,
+                                                                                        "Rotate": 0,
+                                                                                        "FlipVertical": false,
+                                                                                        "FlipHorizontal": false,
+                                                                                        "Cropping": {
+                                                                                            "Left": 0,
+                                                                                            "Top": 0,
+                                                                                            "Right": 0,
+                                                                                            "Bottom": 0
+                                                                                        },
+                                                                                        "Padding": {
+                                                                                            "Left": 0,
+                                                                                            "Top": 0,
+                                                                                            "Right": 0,
+                                                                                            "Bottom": 0
+                                                                                        },
+                                                                                        "InvertColor": false,
+                                                                                        "Tint": "1,1,1,1",
+                                                                                        "Blur": 0,
+                                                                                        "Sharpen": 0,
+                                                                                        "Brightness": 1,
+                                                                                        "Contrast": 1,
+                                                                                        "Saturation": 1,
+                                                                                        "Hue": 0,
+                                                                                        "Colorize": false,
+                                                                                        "TargetColor": "0,1,0,1",
+                                                                                        "CacheToDisk": true
+                                                                                    },
+                                                                                    "compiled": "textures/generated/imagefile/14af22c9ac0e9f53.vtex"
+                                                                                },
+                                                                                "BroadcastMessages": []
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "__references": null
+                                                            },
+                                                            "compiled": null
+                                                        },
+                                                        "StartingAnimationName": "Default",
+                                                        "TextureFilter": "Bilinear"
+                                                    }
+                                                ],
+                                                "Children": []
+                                            }
+                                        ]
                                     },
                                     {
                                         "__guid": "747ce13c-d944-4d4f-8403-0a4950b6ef45",
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "stylus_R",
-                                        "Position": "13.21589,-3.626119,-1.895681",
-                                        "Rotation": "0.3368244,0.05939134,-0.1631759,0.9254165",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -363,15 +1025,93 @@
                                         "NetworkOrphaned": 0,
                                         "OwnerTransfer": 1,
                                         "Components": [],
-                                        "Children": []
+                                        "Children": [
+                                            {
+                                                "__guid": "f3089444-246a-47ab-bfa5-037ac9f9bb81",
+                                                "__version": 1,
+                                                "Flags": 0,
+                                                "Name": "Sprite (1)",
+                                                "Position": "6.141765,2.823237,-0.000001788139",
+                                                "Rotation": "0,0,0,1",
+                                                "Scale": "3.400001,3.400001,3.400001",
+                                                "Tags": "",
+                                                "Enabled": true,
+                                                "NetworkMode": 2,
+                                                "NetworkInterpolation": true,
+                                                "NetworkOrphaned": 0,
+                                                "OwnerTransfer": 1,
+                                                "Components": [
+                                                    {
+                                                        "__type": "Sandbox.SpriteRenderer",
+                                                        "__guid": "db0ed248-5ae8-4cd5-8c02-24a2ab4d7a14",
+                                                        "__enabled": true,
+                                                        "__version": 2,
+                                                        "Additive": true,
+                                                        "Billboard": "Always",
+                                                        "Color": "0.35349,1.23163,2,0.47938",
+                                                        "DepthFeather": 3,
+                                                        "FlipHorizontal": false,
+                                                        "FlipVertical": false,
+                                                        "FogStrength": 1,
+                                                        "IsSorted": false,
+                                                        "Lighting": false,
+                                                        "OnAnimationEnd": null,
+                                                        "OnAnimationStart": null,
+                                                        "OnBroadcastMessage": null,
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
+                                                        "Opaque": false,
+                                                        "OverlayColor": "1,1,1,0",
+                                                        "PlaybackSpeed": 1,
+                                                        "RenderOptions": {
+                                                            "GameLayer": false,
+                                                            "OverlayLayer": true,
+                                                            "BloomLayer": false,
+                                                            "AfterUILayer": false
+                                                        },
+                                                        "Shadows": false,
+                                                        "Size": "3.921641,3.921641",
+                                                        "Sprite": {
+                                                            "$compiler": "embed",
+                                                            "$source": null,
+                                                            "data": {
+                                                                "Animations": [
+                                                                    {
+                                                                        "Name": "Default",
+                                                                        "FrameRate": 15,
+                                                                        "Origin": "0.5,0.5",
+                                                                        "LoopMode": "Loop",
+                                                                        "Frames": [
+                                                                            {
+                                                                                "Texture": "textures/particles/particle_glow_05.vtex",
+                                                                                "BroadcastMessages": []
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "__references": null
+                                                            },
+                                                            "compiled": null
+                                                        },
+                                                        "StartingAnimationName": "Default",
+                                                        "TextureFilter": "Bilinear"
+                                                    }
+                                                ],
+                                                "Children": []
+                                            }
+                                        ]
                                     },
                                     {
                                         "__guid": "d90af1e3-d184-408a-9d51-721868b4bdbc",
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "stylus_L",
-                                        "Position": "13.1729,3.626075,-1.89568",
-                                        "Rotation": "0.9254165,0.1631755,-0.05939125,0.3368245",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -380,15 +1120,93 @@
                                         "NetworkOrphaned": 0,
                                         "OwnerTransfer": 1,
                                         "Components": [],
-                                        "Children": []
+                                        "Children": [
+                                            {
+                                                "__guid": "ee8f88b0-2dec-4db8-aa2d-a9493699a10f",
+                                                "__version": 1,
+                                                "Flags": 0,
+                                                "Name": "Sprite",
+                                                "Position": "6.141765,2.823237,-0.000001788139",
+                                                "Rotation": "0,0,0,1",
+                                                "Scale": "3.400001,3.400001,3.400001",
+                                                "Tags": "",
+                                                "Enabled": true,
+                                                "NetworkMode": 2,
+                                                "NetworkInterpolation": true,
+                                                "NetworkOrphaned": 0,
+                                                "OwnerTransfer": 1,
+                                                "Components": [
+                                                    {
+                                                        "__type": "Sandbox.SpriteRenderer",
+                                                        "__guid": "82c091c0-882c-47eb-86d5-b2195ef661b5",
+                                                        "__enabled": true,
+                                                        "__version": 2,
+                                                        "Additive": true,
+                                                        "Billboard": "Always",
+                                                        "Color": "0.35349,1.23163,2,0.40771",
+                                                        "DepthFeather": 3,
+                                                        "FlipHorizontal": false,
+                                                        "FlipVertical": false,
+                                                        "FogStrength": 1,
+                                                        "IsSorted": false,
+                                                        "Lighting": false,
+                                                        "OnAnimationEnd": null,
+                                                        "OnAnimationStart": null,
+                                                        "OnBroadcastMessage": null,
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
+                                                        "Opaque": false,
+                                                        "OverlayColor": "1,1,1,0",
+                                                        "PlaybackSpeed": 1,
+                                                        "RenderOptions": {
+                                                            "GameLayer": false,
+                                                            "OverlayLayer": true,
+                                                            "BloomLayer": false,
+                                                            "AfterUILayer": false
+                                                        },
+                                                        "Shadows": false,
+                                                        "Size": "3.926732,3.926732",
+                                                        "Sprite": {
+                                                            "$compiler": "embed",
+                                                            "$source": null,
+                                                            "data": {
+                                                                "Animations": [
+                                                                    {
+                                                                        "Name": "Default",
+                                                                        "FrameRate": 15,
+                                                                        "Origin": "0.5,0.5",
+                                                                        "LoopMode": "Loop",
+                                                                        "Frames": [
+                                                                            {
+                                                                                "Texture": "textures/particles/particle_glow_05.vtex",
+                                                                                "BroadcastMessages": []
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "__references": null
+                                                            },
+                                                            "compiled": null
+                                                        },
+                                                        "StartingAnimationName": "Default",
+                                                        "TextureFilter": "Bilinear"
+                                                    }
+                                                ],
+                                                "Children": []
+                                            }
+                                        ]
                                     },
                                     {
                                         "__guid": "f59ef42d-be40-4512-bd8f-e53ec3a13f5a",
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "stylus_C",
-                                        "Position": "13.21589,0.2268411,5.393996",
-                                        "Rotation": "-0.6963639,-0.1227879,-0.1227885,0.6963644",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -397,15 +1215,93 @@
                                         "NetworkOrphaned": 0,
                                         "OwnerTransfer": 1,
                                         "Components": [],
-                                        "Children": []
+                                        "Children": [
+                                            {
+                                                "__guid": "02128166-e28b-471d-aac1-f77a9acd475a",
+                                                "__version": 1,
+                                                "Flags": 0,
+                                                "Name": "Sprite",
+                                                "Position": "6.141765,2.823237,-0.000001788139",
+                                                "Rotation": "0,0,0,1",
+                                                "Scale": "3.400001,3.400001,3.400001",
+                                                "Tags": "",
+                                                "Enabled": true,
+                                                "NetworkMode": 2,
+                                                "NetworkInterpolation": true,
+                                                "NetworkOrphaned": 0,
+                                                "OwnerTransfer": 1,
+                                                "Components": [
+                                                    {
+                                                        "__type": "Sandbox.SpriteRenderer",
+                                                        "__guid": "99de8adb-17b6-469f-9af5-d57a5bbde68f",
+                                                        "__enabled": true,
+                                                        "__version": 2,
+                                                        "Additive": true,
+                                                        "Billboard": "Always",
+                                                        "Color": "0.35349,1.23163,2,0.25296",
+                                                        "DepthFeather": 3,
+                                                        "FlipHorizontal": false,
+                                                        "FlipVertical": false,
+                                                        "FogStrength": 1,
+                                                        "IsSorted": false,
+                                                        "Lighting": false,
+                                                        "OnAnimationEnd": null,
+                                                        "OnAnimationStart": null,
+                                                        "OnBroadcastMessage": null,
+                                                        "OnComponentDestroy": null,
+                                                        "OnComponentDisabled": null,
+                                                        "OnComponentEnabled": null,
+                                                        "OnComponentFixedUpdate": null,
+                                                        "OnComponentStart": null,
+                                                        "OnComponentUpdate": null,
+                                                        "Opaque": false,
+                                                        "OverlayColor": "1,1,1,0",
+                                                        "PlaybackSpeed": 1,
+                                                        "RenderOptions": {
+                                                            "GameLayer": false,
+                                                            "OverlayLayer": true,
+                                                            "BloomLayer": false,
+                                                            "AfterUILayer": false
+                                                        },
+                                                        "Shadows": false,
+                                                        "Size": "3.697571,3.697571",
+                                                        "Sprite": {
+                                                            "$compiler": "embed",
+                                                            "$source": null,
+                                                            "data": {
+                                                                "Animations": [
+                                                                    {
+                                                                        "Name": "Default",
+                                                                        "FrameRate": 15,
+                                                                        "Origin": "0.5,0.5",
+                                                                        "LoopMode": "Loop",
+                                                                        "Frames": [
+                                                                            {
+                                                                                "Texture": "textures/particles/particle_glow_05.vtex",
+                                                                                "BroadcastMessages": []
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "__references": null
+                                                            },
+                                                            "compiled": null
+                                                        },
+                                                        "StartingAnimationName": "Default",
+                                                        "TextureFilter": "Bilinear"
+                                                    }
+                                                ],
+                                                "Children": []
+                                            }
+                                        ]
                                     },
                                     {
                                         "__guid": "64d53d8e-5786-43a6-8cf9-64163ff6f62b",
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "button",
-                                        "Position": "-1.266923,0.00003341397,2.910141",
-                                        "Rotation": "0.3023342,0.6392133,0.6392137,-0.3023346",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -421,8 +1317,8 @@
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "brake",
-                                        "Position": "6.219815,3.729854,-1.674829",
-                                        "Rotation": "0.1530459,0.1530455,0.6903453,0.6903459",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -468,6 +1364,44 @@
                                 "OwnerTransfer": 1,
                                 "Components": [],
                                 "Children": []
+                            },
+                            {
+                                "__guid": "72bdbb7d-3b3e-483d-b59d-ab57f6b1f546",
+                                "__version": 1,
+                                "Flags": 0,
+                                "Name": "ScreenLight",
+                                "Position": "3.569029,0.01023707,4.771395",
+                                "Rotation": "-0.0000000000000000000101644,0.000000000000000000006225648,-1,0.0000001947072",
+                                "Scale": "1,1,1",
+                                "Tags": "light_point,light,light_spot",
+                                "Enabled": false,
+                                "NetworkMode": 2,
+                                "NetworkInterpolation": true,
+                                "NetworkOrphaned": 0,
+                                "OwnerTransfer": 1,
+                                "Components": [
+                                    {
+                                        "__type": "Sandbox.SpotLight",
+                                        "__guid": "decd05fa-bc8b-42b2-8c85-48e53942dfb5",
+                                        "__enabled": true,
+                                        "Attenuation": 10,
+                                        "ConeInner": 24.760765,
+                                        "ConeOuter": 67.82297,
+                                        "Cookie": null,
+                                        "FogMode": "Enabled",
+                                        "FogStrength": 1,
+                                        "LightColor": "2.77674,2.73283,2.11808,1",
+                                        "OnComponentDestroy": null,
+                                        "OnComponentDisabled": null,
+                                        "OnComponentEnabled": null,
+                                        "OnComponentFixedUpdate": null,
+                                        "OnComponentStart": null,
+                                        "OnComponentUpdate": null,
+                                        "Radius": 500,
+                                        "Shadows": false
+                                    }
+                                ],
+                                "Children": []
                             }
                         ]
                     },
@@ -476,7 +1410,7 @@
                         "__version": 1,
                         "Flags": 4,
                         "Name": "root",
-                        "Position": "-0.0000001877308,-0.00001887501,-7.874",
+                        "Position": "0,0,0",
                         "Rotation": "0,0,0,1",
                         "Scale": "1,1,1",
                         "Tags": "",
@@ -492,8 +1426,8 @@
                                 "__version": 1,
                                 "Flags": 4,
                                 "Name": "clavicle_R",
-                                "Position": "-1.429641,-0.8201163,2.590545",
-                                "Rotation": "-0.06705476,0.06738581,-0.7037535,0.7040551",
+                                "Position": "0,0,0",
+                                "Rotation": "0,0,0,1",
                                 "Scale": "1,1,1",
                                 "Tags": "",
                                 "Enabled": true,
@@ -508,8 +1442,8 @@
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "arm_upper_R",
-                                        "Position": "5.426218,-0.002544641,0.002319813",
-                                        "Rotation": "0.1107392,0.4159558,0.00414376,0.9026074",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -524,8 +1458,8 @@
                                                 "__version": 1,
                                                 "Flags": 4,
                                                 "Name": "arm_lower_R",
-                                                "Position": "10.94515,0.00000667572,0.00005340576",
-                                                "Rotation": "-0.01563785,-0.02393212,0.1799621,0.9832578",
+                                                "Position": "0,0,0",
+                                                "Rotation": "0,0,0,1",
                                                 "Scale": "1,1,1",
                                                 "Tags": "",
                                                 "Enabled": true,
@@ -540,8 +1474,8 @@
                                                         "__version": 1,
                                                         "Flags": 4,
                                                         "Name": "hand_R",
-                                                        "Position": "10.36437,-0.001419067,-0.001363277",
-                                                        "Rotation": "0.02638427,0.0006438484,0.01404424,0.999553",
+                                                        "Position": "0,0,0",
+                                                        "Rotation": "0,0,0,1",
                                                         "Scale": "1,1,1",
                                                         "Tags": "",
                                                         "Enabled": true,
@@ -556,8 +1490,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_index_meta_R",
-                                                                "Position": "1.009556,0.7745438,0.1725836",
-                                                                "Rotation": "-0.04045773,0.02569534,0.06541082,0.9967066",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -572,8 +1506,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_index_0_R",
-                                                                        "Position": "2.741007,-0.000007629395,0.00006198883",
-                                                                        "Rotation": "-0.00177164,0.1513657,-0.1150063,0.981763",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -588,8 +1522,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_index_1_R",
-                                                                                "Position": "1.70854,0.00001716614,0.00005531311",
-                                                                                "Rotation": "0.002091558,0.2310217,0.009050807,0.9729041",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -604,8 +1538,8 @@
                                                                                         "__version": 1,
                                                                                         "Flags": 4,
                                                                                         "Name": "finger_index_2_R",
-                                                                                        "Position": "1.148014,0.00002670288,0.00008392334",
-                                                                                        "Rotation": "-0.00008957077,0.09341335,0.00001147387,0.9956274",
+                                                                                        "Position": "0,0,0",
+                                                                                        "Rotation": "0,0,0,1",
                                                                                         "Scale": "1,1,1",
                                                                                         "Tags": "",
                                                                                         "Enabled": true,
@@ -644,8 +1578,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_middle_meta_R",
-                                                                "Position": "1.028294,0.2655544,0.3161726",
-                                                                "Rotation": "0.02051005,0.0231195,-0.02373867,0.9992403",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -660,8 +1594,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_middle_0_R",
-                                                                        "Position": "2.707684,-0.00005340576,0.00009727478",
-                                                                        "Rotation": "-0.00007031672,0.2052337,-0.1114413,0.9723476",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -676,8 +1610,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_middle_1_R",
-                                                                                "Position": "2.135763,0.00003433228,0.00008869171",
-                                                                                "Rotation": "0.0000006854514,0.2358537,-0.000002056357,0.9717885",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -692,8 +1626,8 @@
                                                                                         "__version": 1,
                                                                                         "Flags": 4,
                                                                                         "Name": "finger_middle_2_R",
-                                                                                        "Position": "1.302551,0.00003814697,0.000125885",
-                                                                                        "Rotation": "-0.000002235171,0.05306637,0.000004291529,0.9985909",
+                                                                                        "Position": "0,0,0",
+                                                                                        "Rotation": "0,0,0,1",
                                                                                         "Scale": "1,1,1",
                                                                                         "Tags": "",
                                                                                         "Enabled": true,
@@ -715,8 +1649,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_ring_meta_R",
-                                                                "Position": "0.8090382,-0.2103195,0.2046165",
-                                                                "Rotation": "0.05448757,0.0384559,-0.1189997,0.9906519",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -731,8 +1665,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_ring_0_R",
-                                                                        "Position": "2.711061,-0.00004768372,0.00003623962",
-                                                                        "Rotation": "0.006036647,0.1630323,-0.04761049,0.9854527",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -747,8 +1681,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_ring_1_R",
-                                                                                "Position": "1.850401,0.00001144409,0.0000667572",
-                                                                                "Rotation": "-0.0000001192084,0.2274025,0.00000220537,0.9738008",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -763,8 +1697,8 @@
                                                                                         "__version": 1,
                                                                                         "Flags": 4,
                                                                                         "Name": "finger_ring_2_R",
-                                                                                        "Position": "1.216137,0.00003814697,0.00009536743",
-                                                                                        "Rotation": "-0.000003024933,0.0445767,0.000002473591,0.999006",
+                                                                                        "Position": "0,0,0",
+                                                                                        "Rotation": "0,0,0,1",
                                                                                         "Scale": "1,1,1",
                                                                                         "Tags": "",
                                                                                         "Enabled": true,
@@ -786,8 +1720,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_pinky_meta_R",
-                                                                "Position": "0.5258675,-0.6023331,0.002218246",
-                                                                "Rotation": "0.1081771,0.0550891,-0.1998591,0.9722752",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -802,8 +1736,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_pinky_0_R",
-                                                                        "Position": "2.652502,-0.00006866455,0.0001735687",
-                                                                        "Rotation": "0.004786649,0.2120789,-0.03207223,0.9767143",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -818,8 +1752,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_pinky_1_R",
-                                                                                "Position": "1.49683,0.00004196167,0.0000705719",
-                                                                                "Rotation": "0.000001549719,0.06950022,-0.000002682207,0.997582",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -834,8 +1768,8 @@
                                                                                         "__version": 1,
                                                                                         "Flags": 4,
                                                                                         "Name": "finger_pinky_2_R",
-                                                                                        "Position": "0.8798122,0.00003814697,0.00005912781",
-                                                                                        "Rotation": "-0.000002011654,0.05698804,0.000006929033,0.9983748",
+                                                                                        "Position": "0,0,0",
+                                                                                        "Rotation": "0,0,0,1",
                                                                                         "Scale": "1,1,1",
                                                                                         "Tags": "",
                                                                                         "Enabled": true,
@@ -857,8 +1791,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "hand_L_to_R_ikrule",
-                                                                "Position": "-27.10851,6.606236,-29.65501",
-                                                                "Rotation": "0.1621514,0.6658907,0.0001015067,0.7282145",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -874,8 +1808,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_thumb_0_R",
-                                                                "Position": "0.782486,1.041656,-0.7666664",
-                                                                "Rotation": "-0.5439335,-0.00220798,0.2862355,0.788797",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -890,8 +1824,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_thumb_1_R",
-                                                                        "Position": "1.872047,0.000003814697,0.000009536743",
-                                                                        "Rotation": "-0.002320164,0.1922001,-0.0545623,0.979835",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -906,8 +1840,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_thumb_2_R",
-                                                                                "Position": "1.429722,0.00001525879,0.00002002716",
-                                                                                "Rotation": "-0.00001193582,0.04035185,-0.00007612996,0.9991854",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -962,8 +1896,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "arm_lower_R_twistctrl1",
-                                                                "Position": "3.454803,0.000003814697,0.00009489059",
-                                                                "Rotation": "0.006869947,-0.000001654028,-0.000001758336,0.9999764",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -978,8 +1912,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "arm_lower_R_twistctrl2",
-                                                                        "Position": "3.454796,0.00001525879,0.00008583069",
-                                                                        "Rotation": "0.01274787,0.0002240984,-0.0002042947,0.9999186",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -1040,8 +1974,8 @@
                                 "__version": 1,
                                 "Flags": 4,
                                 "Name": "clavicle_L",
-                                "Position": "-1.429637,0.8201643,2.590543",
-                                "Rotation": "-0.7037544,-0.7040542,0.06705465,0.06738564",
+                                "Position": "0,0,0",
+                                "Rotation": "0,0,0,1",
                                 "Scale": "1,1,1",
                                 "Tags": "",
                                 "Enabled": true,
@@ -1056,8 +1990,8 @@
                                         "__version": 1,
                                         "Flags": 4,
                                         "Name": "arm_upper_L",
-                                        "Position": "5.426217,0.002570391,0.002308846",
-                                        "Rotation": "-0.1252351,-0.4164101,-0.002264485,0.9005075",
+                                        "Position": "0,0,0",
+                                        "Rotation": "0,0,0,1",
                                         "Scale": "1,1,1",
                                         "Tags": "",
                                         "Enabled": true,
@@ -1072,8 +2006,8 @@
                                                 "__version": 1,
                                                 "Flags": 4,
                                                 "Name": "arm_lower_L",
-                                                "Position": "10.94515,-0.000003814697,0.00004768372",
-                                                "Rotation": "0.03165575,0.02099543,0.1803237,0.9828734",
+                                                "Position": "0,0,0",
+                                                "Rotation": "0,0,0,1",
                                                 "Scale": "1,1,1",
                                                 "Tags": "",
                                                 "Enabled": true,
@@ -1088,8 +2022,8 @@
                                                         "__version": 1,
                                                         "Flags": 4,
                                                         "Name": "hand_L",
-                                                        "Position": "10.36445,-0.001377583,0.001556396",
-                                                        "Rotation": "-0.02650667,-0.0004779093,0.01403562,0.9995499",
+                                                        "Position": "0,0,0",
+                                                        "Rotation": "0,0,0,1",
                                                         "Scale": "1,1,1",
                                                         "Tags": "",
                                                         "Enabled": true,
@@ -1104,8 +2038,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_index_meta_L",
-                                                                "Position": "1.009548,0.7745419,-0.1725731",
-                                                                "Rotation": "0.04032684,-0.02581879,0.06546808,0.996705",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -1120,8 +2054,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_index_0_L",
-                                                                        "Position": "2.740978,-0.00007343292,-0.0001087189",
-                                                                        "Rotation": "0.00177435,-0.1513517,-0.1150272,0.9817626",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -1136,8 +2070,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_index_1_L",
-                                                                                "Position": "1.708509,-0.00004482269,0.00004005432",
-                                                                                "Rotation": "-0.001900692,-0.2311335,0.008941713,0.972879",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -1152,8 +2086,8 @@
                                                                                         "__version": 1,
                                                                                         "Flags": 4,
                                                                                         "Name": "finger_index_2_L",
-                                                                                        "Position": "1.147953,-0.00004291534,0.00001144409",
-                                                                                        "Rotation": "-0.00000354647,-0.09325068,-0.0000039339,0.9956427",
+                                                                                        "Position": "0,0,0",
+                                                                                        "Rotation": "0,0,0,1",
                                                                                         "Scale": "1,1,1",
                                                                                         "Tags": "",
                                                                                         "Enabled": true,
@@ -1175,8 +2109,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_middle_meta_L",
-                                                                "Position": "1.02828,0.2655449,-0.3161583",
-                                                                "Rotation": "-0.02051019,-0.02311929,-0.0237375,0.9992403",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -1191,8 +2125,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_middle_0_L",
-                                                                        "Position": "2.707666,-0.00005531311,-0.0001010895",
-                                                                        "Rotation": "0.00007002242,-0.205233,-0.1114408,0.9723477",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -1207,8 +2141,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_middle_1_L",
-                                                                                "Position": "2.135733,-0.00003528595,0.00002479553",
-                                                                                "Rotation": "-0.000001043081,-0.2358476,0.000000968575,0.9717901",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -1223,8 +2157,8 @@
                                                                                         "__version": 1,
                                                                                         "Flags": 4,
                                                                                         "Name": "finger_middle_2_L",
-                                                                                        "Position": "1.302561,-0.00003910065,0.000003814697",
-                                                                                        "Rotation": "-0.0000002682202,-0.05306333,-0.000003248449,0.9985911",
+                                                                                        "Position": "0,0,0",
+                                                                                        "Rotation": "0,0,0,1",
                                                                                         "Scale": "1,1,1",
                                                                                         "Tags": "",
                                                                                         "Enabled": true,
@@ -1246,8 +2180,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_ring_meta_L",
-                                                                "Position": "0.809021,-0.2103443,-0.2046051",
-                                                                "Rotation": "-0.05449097,-0.03845948,-0.1189979,0.9906517",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -1262,8 +2196,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_ring_0_L",
-                                                                        "Position": "2.711031,-0.0000667572,-0.00004005432",
-                                                                        "Rotation": "-0.006034325,-0.1630267,-0.04760944,0.9854537",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -1278,8 +2212,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_ring_1_L",
-                                                                                "Position": "1.850407,-0.00002670288,0.00002288818",
-                                                                                "Rotation": "-0.0000005215421,-0.2273964,0.00000327825,0.9738022",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -1294,8 +2228,8 @@
                                                                                         "__version": 1,
                                                                                         "Flags": 4,
                                                                                         "Name": "finger_ring_2_L",
-                                                                                        "Position": "1.216141,-0.00005340576,0.00001907349",
-                                                                                        "Rotation": "-0.000000819562,-0.04457451,-0.000005811443,0.999006",
+                                                                                        "Position": "0,0,0",
+                                                                                        "Rotation": "0,0,0,1",
                                                                                         "Scale": "1,1,1",
                                                                                         "Tags": "",
                                                                                         "Enabled": true,
@@ -1317,8 +2251,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_pinky_meta_L",
-                                                                "Position": "0.5258617,-0.6023626,-0.002199173",
-                                                                "Rotation": "-0.1081836,-0.05509614,-0.1998575,0.9722744",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -1333,8 +2267,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_pinky_0_L",
-                                                                        "Position": "2.652481,-0.00008583069,-0.000164032",
-                                                                        "Rotation": "-0.004782081,-0.2120698,-0.03206774,0.9767165",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -1349,8 +2283,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_pinky_1_L",
-                                                                                "Position": "1.496832,-0.00001716614,0.00001907349",
-                                                                                "Rotation": "-0.0000009536729,-0.06949321,-0.000001400707,0.9975823",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -1365,8 +2299,8 @@
                                                                                         "__version": 1,
                                                                                         "Flags": 4,
                                                                                         "Name": "finger_pinky_2_L",
-                                                                                        "Position": "0.8798294,-0.00002527237,0.000007629395",
-                                                                                        "Rotation": "0.0000006556502,-0.05698914,0.0000001490114,0.9983748",
+                                                                                        "Position": "0,0,0",
+                                                                                        "Rotation": "0,0,0,1",
                                                                                         "Scale": "1,1,1",
                                                                                         "Tags": "",
                                                                                         "Enabled": true,
@@ -1405,8 +2339,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "hand_R_to_L_ikrule",
-                                                                "Position": "-27.11868,6.598548,29.64751",
-                                                                "Rotation": "-0.1621507,-0.6658912,-0.0001014471,0.7282143",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -1422,8 +2356,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "finger_thumb_0_L",
-                                                                "Position": "0.7824993,1.041666,0.7667217",
-                                                                "Rotation": "0.5439208,0.002201527,0.2862383,0.7888047",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -1438,8 +2372,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "finger_thumb_1_L",
-                                                                        "Position": "1.871769,-0.00003433228,0.00002288818",
-                                                                        "Rotation": "0.00234154,-0.1922023,-0.05457207,0.9798338",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -1454,8 +2388,8 @@
                                                                                 "__version": 1,
                                                                                 "Flags": 4,
                                                                                 "Name": "finger_thumb_2_L",
-                                                                                "Position": "1.429802,-0.00002861023,0.00003433228",
-                                                                                "Rotation": "0.000005446372,-0.04035011,-0.00006930898,0.9991856",
+                                                                                "Position": "0,0,0",
+                                                                                "Rotation": "0,0,0,1",
                                                                                 "Scale": "1,1,1",
                                                                                 "Tags": "",
                                                                                 "Enabled": true,
@@ -1493,8 +2427,8 @@
                                                                 "__version": 1,
                                                                 "Flags": 4,
                                                                 "Name": "arm_lower_L_twistctrl1",
-                                                                "Position": "3.454824,-0.000009536743,-0.00001716614",
-                                                                "Rotation": "-0.006869581,0.0000009834762,0.000004924831,0.9999764",
+                                                                "Position": "0,0,0",
+                                                                "Rotation": "0,0,0,1",
                                                                 "Scale": "1,1,1",
                                                                 "Tags": "",
                                                                 "Enabled": true,
@@ -1509,8 +2443,8 @@
                                                                         "__version": 1,
                                                                         "Flags": 4,
                                                                         "Name": "arm_lower_L_twistctrl2",
-                                                                        "Position": "3.45483,-0.00001764297,-0.00001144409",
-                                                                        "Rotation": "-0.01274831,-0.0002229808,-0.0002084298,0.9999186",
+                                                                        "Position": "0,0,0",
+                                                                        "Rotation": "0,0,0,1",
                                                                         "Scale": "1,1,1",
                                                                         "Tags": "",
                                                                         "Enabled": true,
@@ -1590,8 +2524,8 @@
                         "__version": 1,
                         "Flags": 4,
                         "Name": "camera",
-                        "Position": "0.003239471,0.00001459542,-0.000004505539",
-                        "Rotation": "-0.0000002682208,-0.00000004470347,0.000002950429,1",
+                        "Position": "0,0,0",
+                        "Rotation": "0,0,0,1",
                         "Scale": "1,1,1",
                         "Tags": "",
                         "Enabled": true,
@@ -1605,9 +2539,9 @@
                     {
                         "__guid": "2c2fb3e4-1fb2-4724-a085-3a2981a5a1a9",
                         "__version": 1,
-                        "Flags": 0,
+                        "Flags": 8,
                         "Name": "muzzle",
-                        "Position": "3.848412,0.0000004675916,4.945133",
+                        "Position": "0,0,0",
                         "Rotation": "0,0,0,1",
                         "Scale": "1,1,1",
                         "Tags": "",
@@ -1624,8 +2558,59 @@
                         "__version": 1,
                         "Flags": 0,
                         "Name": "eject",
-                        "Position": "0.2193301,-0.1475519,5.091545",
-                        "Rotation": "0.0000001053671,-0.7071066,0.00000002107342,0.7071068",
+                        "Position": "8.712667,-5.820626,5.533315",
+                        "Rotation": "0.000000000000004440892,0.00000008429372,-0.7071067,0.7071069",
+                        "Scale": "1,1,1",
+                        "Tags": "",
+                        "Enabled": true,
+                        "NetworkMode": 2,
+                        "NetworkInterpolation": true,
+                        "NetworkOrphaned": 0,
+                        "OwnerTransfer": 1,
+                        "Components": [],
+                        "Children": []
+                    },
+                    {
+                        "__guid": "af8595c8-fbcc-4067-a70f-9ebaa730d9f3",
+                        "__version": 1,
+                        "Flags": 8,
+                        "Name": "stylus_L",
+                        "Position": "0,0,0",
+                        "Rotation": "0,0,0,1",
+                        "Scale": "1,1,1",
+                        "Tags": "",
+                        "Enabled": true,
+                        "NetworkMode": 2,
+                        "NetworkInterpolation": true,
+                        "NetworkOrphaned": 0,
+                        "OwnerTransfer": 1,
+                        "Components": [],
+                        "Children": []
+                    },
+                    {
+                        "__guid": "fb708062-0baa-4b17-b93c-876fff1cdfc2",
+                        "__version": 1,
+                        "Flags": 8,
+                        "Name": "stylus_C",
+                        "Position": "0,0,0",
+                        "Rotation": "0,0,0,1",
+                        "Scale": "1,1,1",
+                        "Tags": "",
+                        "Enabled": true,
+                        "NetworkMode": 2,
+                        "NetworkInterpolation": true,
+                        "NetworkOrphaned": 0,
+                        "OwnerTransfer": 1,
+                        "Components": [],
+                        "Children": []
+                    },
+                    {
+                        "__guid": "b2ecc907-a5de-4ed3-a387-e88fea8bad18",
+                        "__version": 1,
+                        "Flags": 8,
+                        "Name": "stylus_R",
+                        "Position": "0,0,0",
+                        "Rotation": "0,0,0,1",
                         "Scale": "1,1,1",
                         "Tags": "",
                         "Enabled": true,
@@ -1667,10 +2652,11 @@
                         },
                         "CreateAttachments": false,
                         "CreateBoneObjects": false,
+                        "LodOverride": null,
                         "MaterialGroup": null,
                         "MaterialOverride": null,
                         "Materials": null,
-                        "Model": "models/first_person/first_person_arms.vmdl",
+                        "Model": "models/first_person/v_first_person_arms_human.vmdl",
                         "Morphs": {},
                         "OnComponentDestroy": null,
                         "OnComponentDisabled": null,
@@ -1730,6 +2716,9 @@
     "MenuPath": null,
     "MenuIcon": null,
     "DontBreakAsTemplate": false,
-    "__references": [],
+    "__references": [
+        "facepunch.v_first_person_arms_human#122024",
+        "facepunch.v_physgun#126893"
+    ],
     "__version": 2
 }

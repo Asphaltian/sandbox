@@ -17,7 +17,7 @@
 	"g_vTexCoordScrollSpeed"	"[0.000000 0.000000 0.000000 0.000000]"
 	"TextureAmbientOcclusion"	"materials/default/default_ao.tga"
 	"TextureColor"	"weapons/physgun/physgun_display_color.png"
-	"TextureNormal"	"materials/default/default_normal.tga"
+	"TextureNormal"	"weapons/physgun/physgun_display_rough.png"
 	"Compiled Textures"
 	{
 		"g_tAmbientOcclusion"	"materials/default/default_ao_tga_7449568e.generated.vtex"

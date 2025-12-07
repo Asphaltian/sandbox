@@ -4,7 +4,7 @@ using System.Text.Json.Nodes;
 [Icon( "✌️" )]
 [ClassName( "duplicator" )]
 [Group( "Building" )]
-public class Duplicator : ToolMode
+public partial class Duplicator : ToolMode
 {
 	/// <summary>
 	/// When we right click, to "copy" something, we create a Duplication object
@@ -61,6 +61,31 @@ public class Duplicator : ToolMode
 		}
 	}
 
+	/// <summary>
+	/// Save the current dupe to storage.
+	/// </summary>
+	public void Save()
+	{
+		string data = CopiedJson;
+		var packages = Cloud.ResolvePrimaryAssetsFromJson( data );
+
+		var storage = Storage.CreateEntry( "dupe" );
+		storage.SetMeta( "packages", packages.Select( x => x.FullIdent ) );
+		storage.Files.WriteAllText( "/dupe.json", data );
+
+		var bitmap = new Bitmap( 1024, 1024 );
+		RenderIconToBitmap( data, bitmap );
+
+		var downscaled = bitmap.Resize( 512, 512 );
+		storage.SetThumbnail( downscaled );
+	}
+
+	[Rpc.Host]
+	public void Load( string json )
+	{
+		CopiedJson = json;
+	}
+
 	protected override void OnUpdate()
 	{
 		base.OnUpdate();
@@ -92,6 +117,22 @@ public class Duplicator : ToolMode
 			return;
 
 		dupe = Json.Deserialize<DuplicationData>( CopiedJson );
+
+		_ = InstallPackages( dupe );
+	}
+
+	async Task InstallPackages( DuplicationData data )
+	{
+		if ( data?.Packages is null || data.Packages.Count == 0 )
+			return;
+
+		foreach ( var pkg in data.Packages )
+		{
+			if ( Cloud.IsInstalled( pkg ) )
+				continue;
+
+			await Cloud.Load( pkg );
+		}
 	}
 
 	void DrawPreview()
@@ -165,6 +206,32 @@ public class Duplicator : ToolMode
 				}
 			}
 		} );
+	}
+
+	public static void FromStorage( Storage.Entry item )
+	{
+		var localPlayer = Player.FindLocalPlayer();
+		var toolgun = localPlayer?.GetWeapon<Toolgun>();
+		if ( !toolgun.IsValid() ) return;
+
+		localPlayer.SwitchWeapon<Toolgun>();
+		toolgun.SetToolMode( "Duplicator" );
+
+		var toolmode = localPlayer.GetComponentInChildren<Duplicator>( true );
+
+		// we don't have a duplicator tool!
+		if ( toolmode is null ) return;
+
+		var json = item.Files.ReadAllText( "/dupe.json" );
+		toolmode.Load( json );
+	}
+
+	public static async Task FromWorkshop( Storage.QueryItem item )
+	{
+		var installed = await item.Install();
+		if ( installed == null ) return;
+
+		FromStorage( installed );
 	}
 
 }

@@ -7,6 +7,9 @@ SpawnMenuHost
 	bottom: 0;
 	color: #cdf;
 	justify-content: center;
+	font-family: Poppins;
+	font-size: 14px;
+	font-weight: 600;
 }
 
 SpawnMenuHost
@@ -99,17 +102,19 @@ SpawnMenuHost.open
 	margin-left: 8px;
 	z-index: 10;
 	flex-shrink: 0;
+
 }
 
 .tabs > *
 {
-	padding: 0.5rem 2rem;
+	padding: 0.5rem 1rem;
 	cursor: pointer;
 	color: #D1D7E3AA;
 	border-radius: 8px 8px 0 0;
 	background-color: #0c202faa;
 	opacity: 1;
 	border-right: 1px solid #0004;
+	gap: 0.4rem;
 }
 
 .tabs > *:hover
@@ -176,7 +181,7 @@ SpawnMenuHost.open
 
 .menuinner
 {
-	background-color: #282E3488;
+	background-color: #13161a88;
 	border-radius: 8px;
 }
 
@@ -189,7 +194,7 @@ VirtualGrid
 	.cell
 	{
 		background-color: #7771;
-
+		cursor: pointer;
 
 		&:hover
 		{
@@ -199,7 +204,7 @@ VirtualGrid
 		&:active
 		{
 			background-color: #08f;
-			filter: brightness( 2 );
+			padding: 2px;
 		}
 	}
 }

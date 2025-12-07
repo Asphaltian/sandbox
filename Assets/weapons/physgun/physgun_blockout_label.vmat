@@ -18,7 +18,7 @@
 	"g_vTexCoordScrollSpeed"	"[0.000000 0.000000 0.000000 0.000000]"
 	"TextureAmbientOcclusion"	"materials/default/default_ao.tga"
 	"TextureColor"	"weapons/physgun/physgun_blockout_label.png"
-	"TextureNormal"	"materials/default/default_normal.tga"
+	"TextureNormal"	"weapons/physgun/physgun_blockout_label_vmat_g_tnormal_d0f40c2a.png"
 	"Compiled Textures"
 	{
 		"g_tAmbientOcclusion"	"materials/default/default_ao_tga_7449568e.generated.vtex"

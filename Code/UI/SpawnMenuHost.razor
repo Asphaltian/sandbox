@@ -3,7 +3,7 @@
 @inherits PanelComponent
 @namespace Sandbox
 
-<root>
+<root @onmousedown=@OnMenuClicked>
 	
     <div class="container">
 
@@ -17,7 +17,10 @@
 
                     var c = activeTab == t ? "active" : "";
 
-                    <div class="@c" @onclick=@(() => SwitchTab(t))>@type.Title</div>
+                    <div class="@c" @onclick=@(() => SwitchTab(t))>
+						<span>@type.Icon</span>
+						<span>@type.Title</span>
+					</div>
                 }
 
             </div>
@@ -120,6 +123,11 @@
         }
     }
 
-
+	// When clicking anywhere in the spawn menu, blur any focused text inputs
+	// so we can close the menu by pressing the spawnmenu key.
+	void OnMenuClicked()
+	{
+		Sandbox.UI.InputFocus.Clear();
+	}
 
 }

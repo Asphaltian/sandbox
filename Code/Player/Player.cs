@@ -7,6 +7,8 @@ using Sandbox.Rendering;
 public sealed partial class Player : Component, Component.IDamageable, PlayerController.IEvents
 {
 	public static Player FindLocalPlayer() => Game.ActiveScene.GetAllComponents<Player>().Where( x => x.IsLocalPlayer ).FirstOrDefault();
+	public static T FindLocalWeapon<T>() where T : BaseCarryable => FindLocalPlayer()?.GetComponentInChildren<T>( true );
+	public static T FindLocalToolMode<T>() where T : ToolMode => FindLocalPlayer()?.GetComponentInChildren<T>( true );
 
 	[RequireComponent] public PlayerController Controller { get; set; }
 	[Property] public GameObject Body { get; set; }
@@ -216,10 +218,9 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 			inventory.SwitchWeapon( inventory.GetBestWeapon() );
 	}
 
-	protected override void OnUpdate()
+	void PlayerController.IEvents.PreInput()
 	{
-		if ( IsLocalPlayer )
-			OnControl();
+		OnControl();
 	}
 
 	RealTimeSince timeSinceJumpPressed;
@@ -457,5 +458,12 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 		if ( weapon == null ) return;
 
 		GetComponent<PlayerInventory>().SwitchWeapon( weapon );
+	}
+
+
+	public override void OnParentDestroy()
+	{
+		// When parent is destroyed, unparent the player to avoid destroying it
+		GameObject.SetParent( null, true );
 	}
 }
