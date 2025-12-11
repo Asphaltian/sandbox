@@ -11,6 +11,8 @@ public abstract partial class ToolMode
 			return;
 		}
 
+		Toolgun.SpinCoil();
+
 		var muzzle = Toolgun.MuzzleTransform;
 
 

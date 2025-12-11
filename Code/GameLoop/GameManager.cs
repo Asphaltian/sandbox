@@ -202,6 +202,12 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 			SendMessage( $"{attackerName} killed {(isSuicide ? "self" : player.DisplayName)} (tags: {dmg.Tags})" );
 	}
 
+	[ConCmd( "spawn" )]
+	private static void SpawnCommand( string path_or_ident )
+	{
+		Spawn( path_or_ident );
+	}
+
 	[Rpc.Broadcast]
 	public static async void Spawn( string path_or_ident )
 	{
@@ -212,7 +218,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 			data["ident"] = path_or_ident;
 			Sandbox.Services.Stats.Increment( "spawn", 1, data );
 
-			Sound.Play( "sounds/ui/spawn.sound" );
+			Sound.Play( "sounds/ui/ui.spawn.sound" );
 		}
 
 		// Only actually spawn it on the host
@@ -412,5 +418,25 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		undo.Name = $"Spawn {entity.Title}";
 		undo.Add( go );
 
+	}
+
+	/// <summary>
+	/// Change a property, remotely
+	/// </summary>
+	[Rpc.Host]
+	public static void ChangeProperty( Component c, string propertyName, object value )
+	{
+		if ( c is null ) return;
+
+		var tl = TypeLibrary.GetType( c.GetType() );
+		if ( tl is null ) return;
+
+		var prop = tl.GetProperty( propertyName );
+		if ( prop is null ) return;
+
+		prop.SetValue( c, value );
+
+		// Broadcast the change to everyone
+		c.GameObject.Network.Refresh( c );
 	}
 }

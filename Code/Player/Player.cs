@@ -1,10 +1,11 @@
 using Sandbox.CameraNoise;
 using Sandbox.Rendering;
+using Sandbox.UI.Inventory;
 
 /// <summary>
 /// Holds player information like health
 /// </summary>
-public sealed partial class Player : Component, Component.IDamageable, PlayerController.IEvents
+public sealed partial class Player : Component, Component.IDamageable, PlayerController.IEvents, IActor
 {
 	public static Player FindLocalPlayer() => Game.ActiveScene.GetAllComponents<Player>().Where( x => x.IsLocalPlayer ).FirstOrDefault();
 	public static T FindLocalWeapon<T>() where T : BaseCarryable => FindLocalPlayer()?.GetComponentInChildren<T>( true );
@@ -90,9 +91,9 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 
 		var ragdollObjects = ragdoll.GetAllObjects( true ).ToLookup( x => x.Name );
 
-		for ( var i = 0; i <= playerRenderer.Model.BoneCount; ++i )
+		foreach ( var bone in bones.AllBones )
 		{
-			var boneName = playerRenderer.Model.GetBoneName( i );
+			var boneName = bone.Name;
 
 			if ( !ragdollObjects.Contains( boneName ) )
 				continue;
@@ -301,6 +302,20 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 	{
 		if ( Health < 1 ) return;
 		if ( PlayerData.IsGodMode ) return;
+
+		//
+		// Ignore impact damage from the world, for now
+		//
+		if ( dmg.Tags.Contains( "impact" ) )
+		{
+			// Was this fall damage? If so, we can bail out here
+			if ( Controller.Velocity.Dot( Vector3.Down ) > 10 )
+				return;
+
+			// We were hit by some flying object, or flew into a wall, 
+			// so lets take that damage.
+		}
+
 
 		var damage = dmg.Damage;
 		if ( dmg.Tags.Contains( DamageTags.Headshot ) )

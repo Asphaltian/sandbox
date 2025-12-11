@@ -1,0 +1,118 @@
+@using Sandbox;
+@using Sandbox.UI;
+@namespace Sandbox
+@inherits Panel
+
+<root>
+
+    <div class="header">
+        <h2>
+            <span>📦</span>
+            <span>@Target.Name</span>
+        </h2>
+    </div>
+
+    <div class="body">
+        <ControlSheet Target="@Properties"></ControlSheet>
+    </div>
+
+</root>
+
+@code
+{
+    [Parameter]
+    public GameObject Target{ get; set; }
+
+    List<SerializedProperty> Properties = new();
+
+    protected override void OnParametersSet()
+    {
+        Properties = new();
+
+        @foreach (var c in Target.Components.GetAll())
+        {
+            CollectProperties(c);
+        }
+    }
+
+    void CollectProperties( Component component )
+    {
+        var tl = TypeLibrary.GetType( component.GetType() );
+        if (tl is null) return;
+
+        SerializedObject so = null;
+
+        foreach ( var prop in tl.Properties )
+        {
+            if (!prop.HasAttribute<ClientEditableAttribute>()) continue;
+
+            if (so is null)
+            {
+                so ??= TypeLibrary.GetSerializedObject(component);
+                so.OnPropertyChanged = PropertyChanged;
+            }
+
+            Properties.Add(so.GetProperty(prop.Name));
+        }
+
+
+        if ( component is ModelRenderer mr )
+        {
+            if (so is null)
+            {
+                so ??= TypeLibrary.GetSerializedObject(mr);
+                so.OnPropertyChanged = PropertyChanged;
+            }
+
+            var prop = mr.GetComponent<Prop>();
+            if (prop is not null)
+            {
+                var propso = TypeLibrary.GetSerializedObject(prop);
+                propso.OnPropertyChanged = PropertyChanged;
+
+                Properties.Add(propso.GetProperty(nameof(ModelRenderer.Tint)));
+            }
+            else
+            {
+                Properties.Add(so.GetProperty(nameof(ModelRenderer.Tint)));
+            }
+
+            Properties.Add( so.GetProperty( nameof( ModelRenderer.RenderType ) ) );
+        }
+
+        if (component is Rigidbody rb)
+        {
+            if (so is null)
+            {
+                so ??= TypeLibrary.GetSerializedObject(rb);
+                so.OnPropertyChanged = PropertyChanged;
+            }
+
+            Properties.Add(so.GetProperty(nameof(Rigidbody.LinearDamping)));
+            Properties.Add(so.GetProperty(nameof(Rigidbody.AngularDamping)));
+        }
+
+        if (component is HingeJoint hj)
+        {
+            if (so is null)
+            {
+                so ??= TypeLibrary.GetSerializedObject(hj);
+                so.OnPropertyChanged = PropertyChanged;
+            }
+
+            Properties.Add(so.GetProperty(nameof(HingeJoint.EnableCollision)));
+            Properties.Add(so.GetProperty(nameof(HingeJoint.Motor)));
+            Properties.Add(so.GetProperty(nameof(HingeJoint.TargetVelocity)));
+            Properties.Add(so.GetProperty(nameof(HingeJoint.MaxTorque)));
+        }
+    }
+
+    void PropertyChanged( SerializedProperty prop )
+    {
+        // TODO - can we debounce?
+
+
+        var c = prop.Parent.Targets.First() as Component;
+        GameManager.ChangeProperty(c, prop.Name, prop.GetValue<object>());
+    }
+}

@@ -1,17 +1,13 @@
 using Sandbox.UI;
+namespace Sandbox;
 
 public partial class BaseSpawnMenu : Panel
 {
 	SpawnMenuOption activeOption;
-	PanelSwitcher Switcher;
+	PanelSwitcher Switcher = default;
+
 	protected Panel MenuFooter;
-
-	void Spawn( string ident )
-	{
-		Log.Info( $"Spawning {ident}" );
-
-		GameManager.Spawn( ident );
-	}
+	bool _addedFooter;
 
 	protected override void OnParametersSet()
 	{
@@ -25,16 +21,28 @@ public partial class BaseSpawnMenu : Panel
 	{
 		base.OnAfterTreeRender( firstTime );
 
-		if ( firstTime && Switcher.IsValid() && options.Count > 0 )
+		if ( !_addedFooter && MenuFooter.IsValid() )
 		{
-			SwitchOption( options.Where( x => x.PanelCreator != null || x.Panel != null ).FirstOrDefault() );
-		}
-
-		if ( firstTime && MenuFooter.IsValid() )
-		{
+			_addedFooter = true;
 			OnMenuFooter( MenuFooter );
 		}
 	}
+
+	bool _firstViewed;
+
+	public override void Tick()
+	{
+		base.Tick();
+
+		if ( !IsVisible ) return;
+		if ( _firstViewed ) return;
+		if ( options.Count == 0 ) return;
+		if ( !Switcher.IsValid() ) return;
+
+		_firstViewed = true;
+		SwitchOption( options.Where( x => x.PanelCreator != null || x.Panel != null ).FirstOrDefault() );
+	}
+
 
 	protected virtual void Rebuild()
 	{
@@ -108,7 +116,7 @@ public partial class BaseSpawnMenu : Panel
 			Switcher.AddChild( activeOption.Panel );
 		}
 
-		activeOption.Panel.SetClass( "hidden", false );
+		activeOption?.Panel?.SetClass( "hidden", false );
 		StateHasChanged();
 	}
 
