@@ -265,9 +265,6 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		// we're a model
 		if ( await FindEntityPath( spawnInfo ) is ScriptedEntity entity )
 		{
-			//var model = await Model.LoadAsync( modelPath );
-			//SpawnModel( model, spawnTransform, player );
-			Log.Info( $"Spawn Entity {entity}" );
 			SpawnEntity( entity, spawnTransform, player );
 			return;
 		}
@@ -437,6 +434,10 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		prop.SetValue( c, value );
 
 		// Broadcast the change to everyone
-		c.GameObject.Network.Refresh( c );
+
+		// BUG - this is optimal I think, but doesn't work??
+		// c.GameObject.Network.Refresh( c );
+
+		c.GameObject.Network.Refresh();
 	}
 }
