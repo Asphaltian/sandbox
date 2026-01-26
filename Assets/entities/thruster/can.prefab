@@ -1,7 +1,7 @@
 {
 	"RootObject": {
 		"__guid": "974f0ca5-f160-4b71-92a3-c26b65ad498f",
-		"__version": 1,
+		"__version": 2,
 		"Flags": 0,
 		"Name": "can",
 		"Position": "0,0,0",
@@ -10,7 +10,7 @@
 		"Tags": "",
 		"Enabled": true,
 		"NetworkMode": 2,
-		"NetworkInterpolation": true,
+		"NetworkFlags": 0,
 		"NetworkOrphaned": 0,
 		"NetworkTransmit": true,
 		"OwnerTransfer": 1,
@@ -19,8 +19,10 @@
 				"__type": "Sandbox.Rigidbody",
 				"__guid": "af921d5f-5c05-4839-a4d0-5df04145bbc4",
 				"__enabled": true,
+				"Flags": 0,
 				"AngularDamping": 0,
 				"EnableImpactDamage": false,
+				"EnhancedCcd": false,
 				"Gravity": true,
 				"GravityScale": 1,
 				"ImpactDamage": 0,
@@ -51,6 +53,7 @@
 				"__type": "ThrusterEntity",
 				"__guid": "5ec6f51b-3e7b-455f-b911-a298981faebe",
 				"__enabled": true,
+				"Flags": 0,
 				"Activate": {
 					"IsEnabled": false,
 					"Action": null
@@ -71,7 +74,7 @@
 		"Children": [
 			{
 				"__guid": "9a6c145a-58f0-4a40-a74e-a4d01bd5bd49",
-				"__version": 1,
+				"__version": 2,
 				"Flags": 0,
 				"Name": "model",
 				"Position": "0,0,0",
@@ -80,7 +83,7 @@
 				"Tags": "",
 				"Enabled": true,
 				"NetworkMode": 2,
-				"NetworkInterpolation": true,
+				"NetworkFlags": 0,
 				"NetworkOrphaned": 0,
 				"NetworkTransmit": true,
 				"OwnerTransfer": 1,
@@ -89,6 +92,7 @@
 						"__type": "Sandbox.ModelRenderer",
 						"__guid": "d1907729-aeaa-4d31-8d5f-6e8bd1b50796",
 						"__enabled": true,
+						"Flags": 0,
 						"BodyGroups": 18446744073709551615,
 						"CreateAttachments": false,
 						"LodOverride": null,
@@ -109,12 +113,13 @@
 							"AfterUILayer": false
 						},
 						"RenderType": "On",
-						"Tint": "0.66977,0.66977,0.66977,1"
+						"Tint": "1,1,1,1"
 					},
 					{
 						"__type": "Sandbox.BoxCollider",
 						"__guid": "4a1aa819-3447-482f-95b2-7e0d28b03eaf",
 						"__enabled": true,
+						"Flags": 0,
 						"Center": "0.04588497,0.02514791,3.372257",
 						"ColliderFlags": 0,
 						"Elasticity": null,
@@ -141,7 +146,7 @@
 			},
 			{
 				"__guid": "c6f0b6b9-0db0-41de-a892-522bd1ee37e3",
-				"__version": 1,
+				"__version": 2,
 				"Flags": 0,
 				"Name": "effect",
 				"Position": "-0.03716397,0.00003054738,13.96289",
@@ -150,7 +155,7 @@
 				"Tags": "particles",
 				"Enabled": false,
 				"NetworkMode": 2,
-				"NetworkInterpolation": true,
+				"NetworkFlags": 0,
 				"NetworkOrphaned": 0,
 				"NetworkTransmit": true,
 				"OwnerTransfer": 1,
@@ -159,6 +164,7 @@
 						"__type": "Sandbox.ParticleEffect",
 						"__guid": "b7675a64-1574-48f1-a4e0-ce9d7347fad2",
 						"__enabled": true,
+						"Flags": 0,
 						"__version": 3,
 						"Alpha": {
 							"Type": "Curve",
@@ -431,6 +437,7 @@
 						"__type": "Sandbox.ParticleSpriteRenderer",
 						"__guid": "0b03da73-cfd2-4225-a552-18a220f55642",
 						"__enabled": true,
+						"Flags": 0,
 						"__version": 2,
 						"Additive": true,
 						"Alignment": "LookAtCamera",
@@ -529,6 +536,7 @@
 						"__type": "Sandbox.ParticleConeEmitter",
 						"__guid": "4573780f-bc90-4be6-b429-e3271817d657",
 						"__enabled": true,
+						"Flags": 0,
 						"Burst": 0,
 						"CenterBias": 1,
 						"CenterBiasVelocity": 0,
@@ -556,7 +564,7 @@
 				"Children": [
 					{
 						"__guid": "f1345619-d547-4305-b18f-eec8577dd817",
-						"__version": 1,
+						"__version": 2,
 						"Flags": 0,
 						"Name": "Point Light",
 						"Position": "11.64149,0,-0.0000009536743",
@@ -565,7 +573,7 @@
 						"Tags": "light_point,light",
 						"Enabled": true,
 						"NetworkMode": 2,
-						"NetworkInterpolation": true,
+						"NetworkFlags": 0,
 						"NetworkOrphaned": 0,
 						"NetworkTransmit": true,
 						"OwnerTransfer": 1,
@@ -574,6 +582,7 @@
 								"__type": "Sandbox.PointLight",
 								"__guid": "c0577f4e-39ba-4237-ba75-b917b7ba77c3",
 								"__enabled": true,
+								"Flags": 0,
 								"Attenuation": 4,
 								"FogMode": "Enabled",
 								"FogStrength": 0.91402715,
@@ -592,7 +601,7 @@
 					},
 					{
 						"__guid": "e8a04b5e-6b23-4029-8c0c-0226de3b6eb8",
-						"__version": 1,
+						"__version": 2,
 						"Flags": 0,
 						"Name": "Sound",
 						"Position": "6.942768,0,0.000001192093",
@@ -601,7 +610,7 @@
 						"Tags": "",
 						"Enabled": true,
 						"NetworkMode": 2,
-						"NetworkInterpolation": true,
+						"NetworkFlags": 0,
 						"NetworkOrphaned": 0,
 						"NetworkTransmit": true,
 						"OwnerTransfer": 1,
@@ -610,6 +619,7 @@
 								"__type": "Sandbox.SoundPointComponent",
 								"__guid": "5998e702-e0d5-4571-9039-731537833cab",
 								"__enabled": false,
+								"Flags": 0,
 								"Distance": 512,
 								"DistanceAttenuation": false,
 								"DistanceAttenuationOverride": false,
@@ -677,7 +687,8 @@
 				"AgentMaxSlope": 40,
 				"ExcludedBodies": "",
 				"IncludedBodies": ""
-			}
+			},
+			"GameObjectSystems": []
 		},
 		"__variables": []
 	},
