@@ -68,7 +68,7 @@
 					"_type": "gameobject",
 					"go": "c6f0b6b9-0db0-41de-a892-522bd1ee37e3"
 				},
-				"Power": 2
+				"Power": 1
 			}
 		],
 		"Children": [
@@ -153,7 +153,7 @@
 				"Rotation": "0,-0.7071067,0,0.7071068",
 				"Scale": "1,1,1",
 				"Tags": "particles",
-				"Enabled": true,
+				"Enabled": false,
 				"NetworkMode": 2,
 				"NetworkFlags": 0,
 				"NetworkOrphaned": 0,
@@ -416,6 +416,7 @@
 						"SequenceSpeed": 1,
 						"SequenceTime": 1,
 						"SheetSequence": false,
+						"SnapToFrame": false,
 						"StartDelay": 0,
 						"StartVelocity": {
 							"Type": "Range",
