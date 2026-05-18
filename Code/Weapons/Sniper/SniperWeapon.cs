@@ -5,6 +5,7 @@ public class SniperWeapon : BaseBulletWeapon
 	[Property] public float PrimaryFireRate { get; set; } = 1.2f;
 	[Property] public float ScopedFov { get; set; } = 20f;
 	[Property] public float ScopeSensitivity { get; set; } = 0.3f;
+	[Property] public SoundEvent BoltPullSound { get; set; }
 
 	private bool _isScoped;
 	private float _mouseDelta;
@@ -72,6 +73,10 @@ public class SniperWeapon : BaseBulletWeapon
 		if ( _hasFired && Input.Released( "attack1" ) )
 		{
 			_hasFired = false;
+
+			if ( BoltPullSound is not null )
+				Sound.Play( BoltPullSound, WorldPosition );
+
 			ViewModel?.RunEvent<ViewModel>( x =>
 			{
 				x.Renderer?.Set( "speed_reload", 1 );
