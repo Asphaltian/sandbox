@@ -328,15 +328,16 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 			return;
 		}
 
+		if ( Input.Pressed( "noclip" ) )
+		{
+			ToggleNoclip();
+		}
+
 		if ( Input.Pressed( "jump" ) )
 		{
 			if ( _timeSinceJumpPressed < 0.3f )
 			{
-				if ( GetComponent<NoclipMoveMode>( true ) is { } noclip )
-				{
-					noclip.Enabled = !noclip.Enabled;
-					IsNoclipping = noclip.Enabled;
-				}
+				ToggleNoclip();
 			}
 
 			_timeSinceJumpPressed = 0;
@@ -350,6 +351,15 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 		GetComponent<PlayerInventory>()?.OnControl();
 
 		Scene.Get<Inventory>()?.HandleInput();
+	}
+
+	void ToggleNoclip()
+	{
+		if ( GetComponent<NoclipMoveMode>( true ) is { } noclip )
+		{
+			noclip.Enabled = !noclip.Enabled;
+			IsNoclipping = noclip.Enabled;
+		}
 	}
 
 	[ConCmd( "sbdm.dev.sethp", ConVarFlags.Cheat )]
