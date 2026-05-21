@@ -227,8 +227,8 @@ public sealed partial class ViewModel : WeaponModel, ICameraSetup
 
 		if ( IsIncremental )
 			StartSounds( IncrementalReloadStartSounds, ref _reloadFinishSoundCts );
-
-		StartSounds( ReloadSoundEvents, ref _reloadSoundCts );
+		else
+			StartSounds( ReloadSoundEvents, ref _reloadSoundCts );
 	}
 
 	/// <summary>
