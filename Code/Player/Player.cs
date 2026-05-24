@@ -171,7 +171,7 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 	[Rpc.Broadcast( NetFlags.HostOnly | NetFlags.Reliable )]
 	void CreateRagdoll( Vector3 velocity, Vector3 origin )
 	{
-		if ( !Controller.Renderer.IsValid() )
+		if ( !Controller.Renderer.IsValid() || Controller.Renderer.Model is null )
 			return;
 
 		var batch = Scene.BatchGroup();
