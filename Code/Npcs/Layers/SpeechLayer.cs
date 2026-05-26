@@ -146,6 +146,13 @@ public class SpeechLayer : BaseNpcLayer
 		var screenPos = camera.PointToScreenPixels( worldPos, out var behind );
 		if ( behind ) return;
 
+		// Don't show subtitles through walls
+		var tr = Npc.Scene.Trace.Ray( camera.WorldPosition, worldPos )
+			.WithTag( "world" )
+			.Run();
+
+		if ( tr.Hit ) return;
+
 		var text = TextRendering.Scope.Default;
 		text.Text = CurrentSpeech;
 		text.FontSize = 14;
