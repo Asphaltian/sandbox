@@ -204,7 +204,7 @@ internal sealed class LimitsSystem : GameObjectSystem<LimitsSystem>, Global.ISpa
 		if ( e.Player is null ) return;
 
 		// TODO: this could be better, register something with the tool instead?
-		if ( CheckToolLimit<Balloon, BalloonEntity>( e, MaxBalloons ) ) return;
+		if ( CheckToolLimit<BalloonTool, BalloonEntity>( e, MaxBalloons ) ) return;
 		if ( CheckToolLimit<ThrusterTool, ThrusterEntity>( e, MaxThrusters ) ) return;
 		if ( CheckToolLimit<EmitterTool, EmitterEntity>( e, MaxEmitters, ToolInput.Primary ) ) return;
 		if ( CheckToolLimit<HoverballTool, HoverballEntity>( e, MaxHoverballs, ToolInput.Primary ) ) return;
