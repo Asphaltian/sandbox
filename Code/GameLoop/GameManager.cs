@@ -14,7 +14,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		}
 	}
 
-	public void Notify( string text )
+	internal void Notify( string text )
 	{
 		Assert.True( Networking.IsHost, "Only the host can send notifications" );
 		NotifyRpc( text );
@@ -75,9 +75,9 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		return data;
 	}
 
-	public void SpawnPlayer( Connection connection ) => SpawnPlayer( PlayerData.For( connection ) );
+	internal void SpawnPlayer( Connection connection ) => SpawnPlayer( PlayerData.For( connection ) );
 
-	public void SpawnPlayer( PlayerData playerData )
+	internal void SpawnPlayer( PlayerData playerData )
 	{
 		Assert.NotNull( playerData, "PlayerData is null" );
 		Assert.True( Networking.IsHost, $"Client tried to SpawnPlayer: {playerData.DisplayName}" );
@@ -119,7 +119,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		}
 	}
 
-	public void SpawnPlayerDelayed( PlayerData playerData )
+	internal void SpawnPlayerDelayed( PlayerData playerData )
 	{
 		GameTask.RunInThreadAsync( async () =>
 		{
@@ -157,7 +157,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 	/// <summary>
 	/// Called on the host when a played is killed
 	/// </summary>
-	public void OnDeath( Player player, DamageInfo dmg )
+	internal void OnDeath( Player player, DamageInfo dmg )
 	{
 		Assert.True( Networking.IsHost );
 
@@ -207,7 +207,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 	/// <summary>
 	/// Called on the host when an NPC is killed. Credits the attacker and adds a kill feed entry.
 	/// </summary>
-	public void OnNpcDeath( string npcName, DamageInfo dmg )
+	internal void OnNpcDeath( string npcName, DamageInfo dmg )
 	{
 		Assert.True( Networking.IsHost );
 
@@ -226,9 +226,10 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 	/// Change a property, remotely
 	/// </summary>
 	[Rpc.Host]
-	public static void ChangeProperty( Component c, string propertyName, object value )
+	internal static void ChangeProperty( Component c, string propertyName, object value )
 	{
 		if ( !c.IsValid() ) return;
+		if ( !c.GameObject.HasAccess( Rpc.Caller ) ) return;
 
 		var tl = TypeLibrary.GetType( c.GetType() );
 		if ( tl is null ) return;
@@ -251,9 +252,11 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 	/// replicated to all clients. Only the morphs present in the batch are modified.
 	/// </summary>
 	[Rpc.Host]
-	public static void ApplyMorphBatch( SkinnedModelRenderer smr, string morphsJson )
+	internal static void ApplyMorphBatch( SkinnedModelRenderer smr, string morphsJson )
 	{
 		if ( !smr.IsValid() ) return;
+		if ( !smr.GameObject.HasAccess( Rpc.Caller ) ) return;
+
 		smr.GameObject.GetOrAddComponent<MorphState>().ApplyBatch( morphsJson );
 	}
 
@@ -261,16 +264,19 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 	/// Apply a full morph preset (as json), and captures with <see cref="MorphState"/> which replicates changes to other clients
 	/// </summary>
 	[Rpc.Host]
-	public static void ApplyFacePosePreset( SkinnedModelRenderer smr, string morphsJson )
+	internal static void ApplyFacePosePreset( SkinnedModelRenderer smr, string morphsJson )
 	{
 		if ( !smr.IsValid() ) return;
+		if ( !smr.GameObject.HasAccess( Rpc.Caller ) ) return;
+
 		smr.GameObject.GetOrAddComponent<MorphState>().ApplyPreset( morphsJson );
 	}
 
 	[Rpc.Host]
-	public static async void ChangeMaterialOverride( ModelRenderer renderer, int materialIndex, string materialPath )
+	internal static async void ChangeMaterialOverride( ModelRenderer renderer, int materialIndex, string materialPath )
 	{
 		if ( !renderer.IsValid() ) return;
+		if ( !renderer.GameObject.HasAccess( Rpc.Caller ) ) return;
 
 		Material material = null;
 
@@ -291,7 +297,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 	/// Delete an object from the Inspector context menu.
 	/// </summary>
 	[Rpc.Host]
-	public static void DeleteInspectedObject( GameObject go )
+	internal static void DeleteInspectedObject( GameObject go )
 	{
 		if ( !go.IsValid() || go.IsProxy ) return;
 		if ( go.Tags.Has( "player" ) ) return;
@@ -306,7 +312,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 	/// Break (gib) a prop from the Inspector context menu.
 	/// </summary>
 	[Rpc.Host]
-	public static void BreakInspectedProp( Prop prop )
+	internal static void BreakInspectedProp( Prop prop )
 	{
 		if ( !prop.IsValid() || prop.IsProxy ) return;
 		// Check ownership if the object has an Ownable component
@@ -321,7 +327,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 	}
 
 	[Rpc.Host]
-	public static void GiveSpawnerWeaponAt( string type, string path, int slot, string data = null, string icon = null, string title = null )
+	internal static void GiveSpawnerWeaponAt( string type, string path, int slot, string data = null, string icon = null, string title = null )
 	{
 		var player = Player.FindForConnection( Rpc.Caller );
 		if ( player is null ) return;
@@ -369,7 +375,7 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		body.DestroyGameObject();
 	}
 
-	public void OnCleanup( int removedObjects, int restoredObjects )
+	void ICleanupEvents.OnCleanup( int removedObjects, int restoredObjects )
 	{
 		Notices.AddNotice( "cleaning_services", Color.Green, $"Cleanup! Removed {removedObjects} objects, restored {restoredObjects} objects." );
 	}

@@ -2,7 +2,7 @@ using Sandbox.Citizen;
 
 public sealed class PlayerInventory : Component, Local.IPlayerEvents
 {
-	[Property] public int MaxSlots { get; set; } = 6;
+	[Property] public int MaxSlots { get; private set; } = 6;
 
 	[RequireComponent] public Player Player { get; set; }
 
@@ -14,7 +14,7 @@ public sealed class PlayerInventory : Component, Local.IPlayerEvents
 
 	[Sync( SyncFlags.FromHost ), Change] public BaseCarryable ActiveWeapon { get; private set; }
 
-	public void OnActiveWeaponChanged( BaseCarryable oldWeapon, BaseCarryable newWeapon )
+	internal void OnActiveWeaponChanged( BaseCarryable oldWeapon, BaseCarryable newWeapon )
 	{
 		if ( oldWeapon.IsValid() )
 			oldWeapon.GameObject.Enabled = false;
@@ -80,7 +80,7 @@ public sealed class PlayerInventory : Component, Local.IPlayerEvents
 		return -1;
 	}
 
-	public void GiveDefaultWeapons()
+	internal void GiveDefaultWeapons()
 	{
 		Pickup( "weapons/physgun/physgun.prefab", false );
 		Pickup( "weapons/toolgun/toolgun.prefab", false );
@@ -90,22 +90,25 @@ public sealed class PlayerInventory : Component, Local.IPlayerEvents
 	/// <summary>
 	/// Activates the named tool mode, giving and equipping the toolgun first if the player doesn't have one.
 	/// </summary>
-	public void SetToolMode( string toolModeName )
+	public void SetToolMode( string name )
 	{
 		if ( !Networking.IsHost )
 		{
-			HostSetToolMode( toolModeName );
+			HostSetToolMode( name );
 			return;
 		}
 
 		if ( !HasWeapon<Toolgun>() )
+		{
 			Pickup( "weapons/toolgun/toolgun.prefab", false );
+		}
 
-		var toolgun = GetWeapon<Toolgun>();
-		if ( !toolgun.IsValid() ) return;
+		var toolGun = GetWeapon<Toolgun>();
+		if ( !toolGun.IsValid() ) 
+			return;
 
-		SwitchWeapon( toolgun );
-		toolgun.SetToolMode( toolModeName );
+		SwitchWeapon( toolGun );
+		toolGun.SetToolMode( name );
 	}
 
 	[Rpc.Host]
@@ -638,8 +641,6 @@ public sealed class PlayerInventory : Component, Local.IPlayerEvents
 	{
 		Remove( weapon );
 	}
-
-	// --- Event Handlers ---
 
 	void Local.IPlayerEvents.OnDied( PlayerDiedParams args )
 	{

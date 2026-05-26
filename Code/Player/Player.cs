@@ -1,26 +1,30 @@
 using Sandbox.CameraNoise;
-using Sandbox.Movement;
-using System.Threading;
 
 /// <summary>
 /// Holds player information like health
 /// </summary>
 public sealed partial class Player : Component, Component.IDamageable, PlayerController.IEvents, Global.ISaveEvents, IKillSource
 {
-	private static Player LocalPlayer { get; set; }
-	public static Player FindLocalPlayer() => LocalPlayer;
-	public static T FindLocalWeapon<T>() where T : BaseCarryable => FindLocalPlayer()?.GetComponentInChildren<T>( true );
-	public static T FindLocalToolMode<T>() where T : ToolMode => FindLocalPlayer()?.GetComponentInChildren<T>( true );
+	[RequireComponent] 
+	public PlayerController Controller { get; set; }
 
-	[RequireComponent] public PlayerController Controller { get; set; }
-	[Property] public GameObject Body { get; set; }
-	[Property, Range( 0, 100 ), Sync( SyncFlags.FromHost )] public float Health { get; set; } = 100;
-	[Property, Range( 0, 100 ), Sync( SyncFlags.FromHost )] public float MaxHealth { get; set; } = 100;
+	[Property] 
+	public GameObject Body { get; internal set; }
 
-	[Property, Range( 0, 100 ), Sync( SyncFlags.FromHost )] public float Armour { get; set; } = 0;
-	[Property, Range( 0, 100 ), Sync( SyncFlags.FromHost )] public float MaxArmour { get; set; } = 100;
+	[Property, Range( 0, 100 ), Sync( SyncFlags.FromHost )] 
+	public float Health { get; set; } = 100;
 
-	[Sync( SyncFlags.FromHost )] public PlayerData PlayerData { get; set; }
+	[Property, Range( 0, 100 ), Sync( SyncFlags.FromHost )] 
+	public float MaxHealth { get; set; } = 100;
+
+	[Property, Range( 0, 100 ), Sync( SyncFlags.FromHost )] 
+	public float Armour { get; set; } = 0;
+
+	[Property, Range( 0, 100 ), Sync( SyncFlags.FromHost )] 
+	public float MaxArmour { get; set; } = 100;
+
+	[Sync( SyncFlags.FromHost )] 
+	public PlayerData PlayerData { get; internal set; }
 
 	public Transform EyeTransform
 	{
@@ -40,7 +44,6 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 	public long SteamId => PlayerData.IsValid() ? PlayerData.SteamId : 0;
 	public string DisplayName => PlayerData.IsValid() ? PlayerData.DisplayName : "Unknown";
 
-	// IKillSource
 	string IKillSource.DisplayName => DisplayName;
 	long IKillSource.SteamId => SteamId;
 	void IKillSource.OnKill( GameObject victim )
@@ -93,7 +96,7 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 	/// Whether this player is currently noclipping. Synced so proxies can animate correctly.
 	/// </summary>
 	[Sync]
-	public bool IsNoclipping { get; set; }
+	public bool IsNoclipping { get; internal set; }
 
 	protected override void OnUpdate()
 	{
@@ -154,7 +157,6 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 	{
 		if ( damage.Tags.Contains( DamageTags.Explosion ) && damage.Origin != Vector3.Zero )
 		{
-
 			var dist = (WorldPosition - damage.Origin).Length;
 			var strength = MathX.Remap( dist, 0, 512, 1024, 2048, true );
 
@@ -296,7 +298,7 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 	}
 
 	[Rpc.Host]
-	public void EquipBestWeapon()
+	internal void EquipBestWeapon()
 	{
 		var inventory = GetComponent<PlayerInventory>();
 
@@ -360,12 +362,6 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 			noclip.Enabled = !noclip.Enabled;
 			IsNoclipping = noclip.Enabled;
 		}
-	}
-
-	[ConCmd( "sbdm.dev.sethp", ConVarFlags.Cheat )]
-	private static void Dev_SetHp( int hp )
-	{
-		FindLocalPlayer().Health = hp;
 	}
 
 	private SoundHandle _dmgSound;

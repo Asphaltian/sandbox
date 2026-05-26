@@ -6,7 +6,7 @@ using System.Text.Json.Nodes;
 [Title( "#tool.name.duplicator" )]
 [ClassName( "duplicator" )]
 [Group( "#tool.group.building" )]
-public partial class Duplicator : ToolMode
+public sealed partial class Duplicator : ToolMode
 {
 	/// <summary>
 	/// When we right click, to "copy" something, we create a Duplication object
