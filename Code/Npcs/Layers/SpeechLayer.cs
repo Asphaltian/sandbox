@@ -64,15 +64,9 @@ public class SpeechLayer : BaseNpcLayer
 			_soundHandle.Parent = Npc.GameObject;
 		}
 
-		// Use the explicit subtitle, or fall back to the extension on the resolved sound file
 		if ( !string.IsNullOrEmpty( subtitle ) )
 		{
 			CurrentSpeech = subtitle;
-		}
-		else
-		{
-			var ext = SubtitleExtension.FindForResourceOrDefault( soundFile );
-			CurrentSpeech = ext?.Text;
 		}
 
 		_subtitleEnd = duration;

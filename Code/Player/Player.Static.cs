@@ -4,4 +4,20 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 	public static Player FindLocalPlayer() => LocalPlayer;
 	public static T FindLocalWeapon<T>() where T : BaseCarryable => FindLocalPlayer()?.GetComponentInChildren<T>( true );
 	public static T FindLocalToolMode<T>() where T : ToolMode => FindLocalPlayer()?.GetComponentInChildren<T>( true );
+
+	/// <summary>
+	/// Find a player for this connection
+	/// </summary>
+	public static Player FindForConnection( Connection c )
+	{
+		return Game.ActiveScene.GetAll<Player>().FirstOrDefault( x => x.Network.Owner == c );
+	}
+
+	/// <summary>
+	/// Get player from a connection id
+	/// </summary>
+	public static Player For( Guid playerId )
+	{
+		return Game.ActiveScene.GetAll<Player>().FirstOrDefault( x => x.PlayerId.Equals( playerId ) );
+	}
 }
