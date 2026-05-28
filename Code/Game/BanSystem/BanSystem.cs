@@ -35,7 +35,7 @@ public sealed class BanSystem : GameObjectSystem<BanSystem>, Component.INetworkL
 
 		GameManager.Current.Notify( $"🔨 {connection.DisplayName} was banned: {reason}" );
 
-		connection.Kick( reason );
+		connection.Kick( $"Banned: {reason}" );
 	}
 
 	/// <summary>

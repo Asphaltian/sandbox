@@ -50,11 +50,6 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		}
 
 		UndoSystem.Current?.RemovePlayer( channel.SteamId );
-
-		if ( _kickedPlayers.Remove( channel.Id ) ) return;
-		if ( BanSystem.Current?.IsBanned( channel.SteamId ) ?? false ) return;
-
-		Notify( $"👋 {channel.DisplayName} has left the game" );
 	}
 
 	private PlayerData CreatePlayerInfo( Connection channel )
