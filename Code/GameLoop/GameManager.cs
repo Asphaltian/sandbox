@@ -111,15 +111,21 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		}
 	}
 
-	internal void SpawnPlayerDelayed( PlayerData playerData )
+	/// <summary>
+	/// Called by the client (via PlayerObserver) when they want to respawn.
+	/// </summary>
+	[Rpc.Host]
+	internal void RequestRespawn()
 	{
-		GameTask.RunInThreadAsync( async () =>
+		var connection = Rpc.Caller;
+
+		// Clean up any lingering observers for this connection.
+		foreach ( var observer in Scene.GetAllComponents<PlayerObserver>().Where( x => x.Network.Owner == connection ).ToArray() )
 		{
-			await Task.Delay( 4000 );
-			await GameTask.MainThread();
-			if ( Current is not null )
-				Current.SpawnPlayer( playerData );
-		} );
+			observer.GameObject.Destroy();
+		}
+
+		SpawnPlayer( connection );
 	}
 
 	/// <summary>
