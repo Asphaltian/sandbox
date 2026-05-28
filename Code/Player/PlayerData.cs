@@ -1,29 +1,16 @@
 /// <summary>
 /// Holds persistent player information like deaths, kills
 /// </summary>
-public sealed partial class PlayerData : Component, Global.ISaveEvents
+public sealed partial class PlayerData : Component
 {
-	/// <summary>
-	/// Unique Id per each player and bot, equal to owning Player connection Id if it's a real player.
-	/// </summary>
-	[Property] public Guid PlayerId { get; internal set; }
-	[Property] public long SteamId { get; internal set; } = -1L;
-	[Property] public string DisplayName { get; internal set; }
-
-	[Sync] public int Kills { get; internal set; }
-	[Sync] public int Deaths { get; internal set; }
-
-	[Sync] public bool IsGodMode { get; internal set; }
-
-	public Connection Connection => Connection.Find( PlayerId );
+	[Sync( SyncFlags.FromHost )] public int Kills { get; internal set; }
+	[Sync( SyncFlags.FromHost )] public int Deaths { get; internal set; }
+	[Sync( SyncFlags.FromHost )] public bool IsGodMode { get; internal set; }
 
 	/// <summary>
 	/// Is this player data me?
 	/// </summary>
-	public bool IsMe => PlayerId == Connection.Local.Id;
-
-	/// <inheritdoc cref="Connection.Ping"/>
-	public float Ping => Connection?.Ping ?? 0;
+	public bool IsMe => Network.Owner == Connection.Local;
 
 	/// <summary>
 	/// Data for all players
@@ -33,19 +20,7 @@ public sealed partial class PlayerData : Component, Global.ISaveEvents
 	/// <summary>
 	/// Get player data for a player
 	/// </summary>
-	/// <param name="connection"></param>
-	/// <returns></returns>
-	public static PlayerData For( Connection connection ) => connection == null ? default : For( connection.Id );
-
-	/// <summary>
-	/// Get player data for a player's id
-	/// </summary>
-	/// <param name="playerId"></param>
-	/// <returns></returns>
-	public static PlayerData For( Guid playerId )
-	{
-		return All.FirstOrDefault( x => x.PlayerId == playerId );
-	}
+	public static PlayerData For( Connection connection ) => connection == null ? default : All.FirstOrDefault( x => x.Network.Owner == connection );
 
 	// Host-side respawn tracking. No sync required.
 	private bool _needsRespawn;
@@ -72,7 +47,7 @@ public sealed partial class PlayerData : Component, Global.ISaveEvents
 		_needsRespawn = false;
 
 		// Clean up any lingering observer for this connection.
-		foreach ( var observer in Scene.GetAllComponents<PlayerObserver>().Where( x => x.Network.Owner?.Id == PlayerId ).ToArray() )
+		foreach ( var observer in Scene.GetAllComponents<PlayerObserver>().Where( x => x.Network.Owner == Network.Owner ).ToArray() )
 		{
 			observer.GameObject.Destroy();
 		}
@@ -106,19 +81,10 @@ public sealed partial class PlayerData : Component, Global.ISaveEvents
 
 		Assert.True( Networking.IsHost, "PlayerData.AddStat is host-only!" );
 
-		using ( Rpc.FilterInclude( Connection ) )
+		using ( Rpc.FilterInclude( Network.Owner ) )
 		{
 			RpcAddStat( identifier, amount );
 		}
 	}
 
-	void Global.ISaveEvents.AfterLoad( string filename )
-	{
-		var connection = Connection;
-		if ( connection == null )
-		{
-			// Get new PlayerId from SteamId if this is a new session
-			PlayerId = Connection.All.FirstOrDefault( x => x.SteamId == SteamId )?.Id ?? Guid.Empty;
-		}
-	}
 }
