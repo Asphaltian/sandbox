@@ -100,8 +100,7 @@
 
     IEnumerable<object> GetData()
     {
-		var q = mount.Resources
-						.Where( x => x.Type == ResourceType.Model )
+		var q = mount.GetAll( ResourceType.Model )
 						.Where( x => !x.Flags.Contains( Sandbox.Mounting.ResourceFlags.DeveloperOnly ) ); // Hide dev-only junk models
 
 		if ( !string.IsNullOrWhiteSpace( Filter ) )
