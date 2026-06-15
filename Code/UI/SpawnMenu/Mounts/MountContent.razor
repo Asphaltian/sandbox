@@ -4,10 +4,10 @@
 @namespace Sandbox
 @inherits Panel
 
-@if ( mount is null )
+@if ( mount is null || !mount.IsMounted )
 {
     <root>
-        #spawnmenu.mounts.error
+		<label>#spawnmenu.mounts.error</label>
     </root>
     return;
 }
@@ -75,9 +75,9 @@
 
 	protected override int BuildHash() => HashCode.Combine(Ident, ItemSize, Filter);
 
-    protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
-        mount = await Sandbox.Mounting.Directory.Mount( Ident );
+        mount = Sandbox.Mounting.Directory.Get( Ident );
     }
 
 	void GoHome()
