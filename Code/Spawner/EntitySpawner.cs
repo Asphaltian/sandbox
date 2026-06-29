@@ -68,6 +68,10 @@ public sealed class EntitySpawner : ISpawner
 		transform.Position += transform.Up * depth;
 		transform.Rotation *= Rotation.FromYaw( GetYawCorrection() );
 
+		// Nudge to a nearby clear spot so entities don't spawn on top of each other.
+		transform = SpawnPlacement.FindSpawnPosition( new[] { transform }, Bounds,
+			dropToFloor: false, scanRadius: MathF.Max( Bounds.Size.x, Bounds.Size.y ) );
+
 		var go = GameObject.Clone( Entity.Prefab, new CloneConfig { Transform = transform, StartEnabled = false } );
 		go.Tags.Add( "removable" );
 

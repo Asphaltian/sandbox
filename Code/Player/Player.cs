@@ -97,11 +97,7 @@ public sealed partial class Player : Component, Component.IDamageable, PlayerCon
 	[Sync]
 	public bool IsNoclipping { get; internal set; }
 
-	/// <summary>
-	/// How many seconds a player is invulnerable for after spawning. This stops players
-	/// being spawn-killed before they can react (e.g. by a turret or NPC sat on a spawn
-	/// point). Set to 0 to disable spawn protection entirely.
-	/// </summary>
+	/// <summary>Seconds of invulnerability after spawning, to stop spawn-killing. 0 disables it.</summary>
 	[ConVar( "sb.spawnprotection", ConVarFlags.Replicated | ConVarFlags.Saved, Help = "Seconds of invulnerability after spawning. 0 disables spawn protection." )]
 	public static float SpawnProtection { get; set; } = 5.0f;
 

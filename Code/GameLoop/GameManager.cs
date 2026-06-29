@@ -126,22 +126,34 @@ public sealed partial class GameManager : GameObjectSystem<GameManager>, Compone
 		SpawnPlayer( connection );
 	}
 
+	/// <summary>Approximate standing-player hull, used for spawn clearance and floor settling.</summary>
+	private static readonly BBox PlayerHull = new( new Vector3( -16f, -16f, 0f ), new Vector3( 16f, 16f, 72f ) );
+
+	/// <summary>The last position we spawned a player at, so we can avoid reusing it.</summary>
+	private Vector3? _lastSpawnPosition;
+
 	/// <summary>
-	/// Find the most appropriate place to respawn
+	/// Find a place to respawn: a floor-settled spawn point nobody is standing on, avoiding the
+	/// last one used.
 	/// </summary>
 	Transform FindSpawnLocation()
 	{
-		//
-		// If we have any SpawnPoint components in the scene, then use those
-		//
 		var spawnPoints = Scene.GetAllComponents<SpawnPoint>().ToArray();
 
+		// No spawn points — fall back to the world origin and warn. The map needs a SpawnPoint.
 		if ( spawnPoints.Length == 0 )
 		{
+			Log.Warning( "No SpawnPoint components in the scene — spawning at the world origin. Add a SpawnPoint to the map to fix this." );
 			return Transform.Zero;
 		}
 
-		return Random.Shared.FromArray( spawnPoints ).Transform.World;
+		var transform = SpawnPlacement.FindSpawnPosition(
+			spawnPoints.OrderBy( _ => Random.Shared.Next() ).Select( x => x.Transform.World ),
+			PlayerHull,
+			avoid: _lastSpawnPosition );
+
+		_lastSpawnPosition = transform.Position;
+		return transform;
 	}
 
 	[Rpc.Broadcast( NetFlags.HostOnly )]
